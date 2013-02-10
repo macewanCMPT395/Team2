@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{asymptote}
+
+\begin{document}
+
+\title{Ushahidi GeoRole Project Outline}
+\date{}
+\author{
+   Hnatiw, Michael\\
+  \and
+  Parrish, Taylor\\
+  \and
+  Lind, Stephen\\
+}
+\maketitle
+
+\section{Problem}
+\subsection{Metaphor}
+Using MSPaint and Google Maps as user restriction tools.
+\subsection{Problem Explained}
+Ushahidi currently has no way to restrict user roles based on geographic location. There are a few issues with this, namely lack of local expertise and credibility. Administrators would be well served with a feature that would allow them to select a geographic region under which their reports will be allowed to operate.
+
+\section{Requirements}
+\subsection{Mock Up}
+\subsection{User Stories}
+\subsection{Must Haves}
+-User hierarchy of geographic restriction.
+-Some representation to the user of area of restriction or control.
+
+\section{Time Line}
+
+\section{Approach}
+As Ushahidi's web framework runs on Kohana, this will naturally be an extension of the Model-View-Controller. At a more specific level, we will be using a modified scrum development scheme. As we are a small team we will not have a traditional Product Owner or Scrum Master. We as a team will decide the weighting and importance of user stories and incorporate them into the sprints themselves.
+
+\section{Obstacles}
+\subsection{Unknowns}
+Ushahidi's code base for GUI geographic region selection is obscure and difficult to locate. The actual object behind this functionality is currently our biggest unknown. Until there is further communication with Ushahidi developers we are at a loss for GUI development. This could turn a risk, or the option as shown in the alternative mock up is to us a text based selection.
+\subsection{Risks}
+-Time frame. We have 5 sprints comprising 9 weeks. Our team is involved with other tasks so we expect our focus factor to be low.
+-Business risk. As we lack a project owner, the task outline is vague and our deliverable may be not as expected.
+-Technological risk, our team is new to PHP and Kohana. The upside to this is as our team is brought up to speed, our focus factor should increase.
+-Feature creep. As there is no project owner, our team's ambition could add to the project backlog unnecesarily.
+
+
+Project Razor created with la\TeX~.
+\end{document}
