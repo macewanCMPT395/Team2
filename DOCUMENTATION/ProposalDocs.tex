@@ -1,18 +1,42 @@
 \documentclass{article}
 \usepackage{asymptote}
+\usepackage{caption}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \begin{document}
 
-\title{Ushahidi GeoRole Project Outline}
-\date{}
-\author{
-   Hnatiw, Michael\\
-  \and
-  Parrish, Taylor\\
-  \and
-  Lind, Stephen\\
-}
-\maketitle
+\begin{titlepage}
+\begin{center}
+\textsc{\LARGE Team2 Inc.}\\[1.5cm]
+
+% title
+\HRule \\[1.4cm]
+{ \huge \bfseries Ushahidi GeoRole Project Outline}\\[0.4cm]
+
+\HRule \\[1.5cm]
+
+%Author Data
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft}
+Michael Hnatiw
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{center}
+Stephen Lind
+\end{center}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright}
+Taylor Parrish
+\end{flushright}
+\end{minipage}
+
+%bottom of page
+\vfill
+{\large \today}
+\end{center}
+\end{titlepage}
 
 \section{Problem}
 \subsection{Metaphor}
@@ -22,12 +46,29 @@ Ushahidi currently has no way to restrict user roles based on geographic locatio
 
 \section{Requirements}
 \subsection{Mock Up}
+\begin{itemize}
+\item The ideal solution is to use a graphical tool to select the region. Ushahidi currently supports some form of polygon selection, however our team will need to investigate the possibility of incorporating this pre-existing code into this addition. This feature would resemble the following figure.
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=100mm]{mockupMap.png}
+  \captionof{figure}{Map based region selection.}
+\end{minipage}
+\item The more simplistic approach is to define a region based on text input. This may prove to be the more ideal solution if the pre-existing map based polygon hooks prove difficult to implement in our addition.
+\end{itemize}
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=100mm]{mockupNomap.png}
+  \captionof{figure}{Text based region selection}
+\end{minipage}
 \subsection{User Stories}
+\includegraphics[width=100mm]{ProjectBacklogImage.png}
 \subsection{Must Haves}
 -User hierarchy of geographic restriction.
+\includegraphics[width=100mm]{permissions.png}
 -Some representation to the user of area of restriction or control.
 
 \section{Time Line}
+\includegraphics[width=100mm]{UshahidiTimeline.png}
 
 \section{Approach}
 As Ushahidi's web framework runs on Kohana, this will naturally be an extension of the Model-View-Controller. At a more specific level, we will be using a modified scrum development scheme. As we are a small team we will not have a traditional Product Owner or Scrum Master. We as a team will decide the weighting and importance of user stories and incorporate them into the sprints themselves.
