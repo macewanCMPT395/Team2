@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.1.7)  10 FEB 2013 19:18
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.1.7)  11 FEB 2013 00:16
 entering extended mode
  %&-line parsing enabled.
 **ProposalDocs.tex
@@ -126,23 +126,23 @@ LaTeX Info: Redefining \selectfont on input line 125.
 \JustifyingParindent=\skip56
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 23.
+(Font)              <7> on input line 25.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 23.
+(Font)              <5> on input line 25.
  [1
 
 {/usr/share/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 50.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 43.
  (/usr/share/texmf/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 50.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 43.
 
-<mockupMap.png, id=9, 722.7pt x 451.6875pt>
+<mockupMap.png, id=8, 722.7pt x 451.6875pt>
 File: mockupMap.png Graphic file (type png)
  <use mockupMap.png>
-<mockupNomap.png, id=10, 703.87968pt x 298.86656pt>
+<mockupNomap.png, id=9, 703.87968pt x 298.86656pt>
 File: mockupNomap.png Graphic file (type png)
  <use mockupNomap.png>
 [1 <./mockupMap.png>]
@@ -153,16 +153,16 @@ File: ProjectBacklogImage.png Graphic file (type png)
 <permissions.png, id=17, 551.81157pt x 240.14719pt>
 File: permissions.png Graphic file (type png)
  <use permissions.png>
-Overfull \hbox (118.04636pt too wide) in paragraph at lines 66--69
-\OT1/cmr/m/n/10 -User hi-er-ar-chy of ge-o-graphic re-stric-tion. []
- []
-
 <UshahidiTimeline.png, id=18, 1303.87125pt x 840.13875pt>
 File: UshahidiTimeline.png Graphic file (type png)
 
-<use UshahidiTimeline.png> [2 <./mockupNomap.png> <./ProjectBacklogImage.png (P
-NG copy)> <./permissions.png>] [3 <./UshahidiTimeline.png (PNG copy)>] [4]
-(./ProposalDocs.aux) ) 
+<use UshahidiTimeline.png>
+Overfull \hbox (97.10182pt too wide) in paragraph at lines 78--80
+ []|  [] 
+ []
+
+[2 <./mockupNomap.png> <./ProjectBacklogImage.png (PNG copy)> <./permissions.pn
+g>] [3 <./UshahidiTimeline.png (PNG copy)>] [4] (./ProposalDocs.aux) ) 
 Here is how much of TeX's memory you used:
  1272 strings out of 256216
  18780 string characters out of 1917073
@@ -170,12 +170,13 @@ Here is how much of TeX's memory you used:
  4579 multiletter control sequences out of 10000+200000
  6058 words of font info for 22 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 35i,6n,38p,413b,261s stack positions out of 5000i,500n,6000p,200000b,15000s
-</usr/share/texmf/fonts/type1/bluesky/cm/cmbx12.pfb></usr
-/share/texmf/fonts/type1/bluesky/cm/cmcsc10.pfb></usr/share/texmf/fonts/type1/b
-luesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr12.pfb></usr/sh
-are/texmf/fonts/type1/bluesky/cm/cmsy10.pfb>
-Output written on ProposalDocs.pdf (5 pages, 378734 bytes).
+ 35i,6n,38p,413b,265s stack positions out of 5000i,500n,6000p,200000b,15000s
+</usr/sha
+re/texmf/fonts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf/fonts/type1/bluesk
+y/cm/cmcsc10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share
+/texmf/fonts/type1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/c
+m/cmsy10.pfb>
+Output written on ProposalDocs.pdf (5 pages, 382942 bytes).
 PDF statistics:
  47 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)

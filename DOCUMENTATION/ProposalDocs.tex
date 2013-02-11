@@ -17,19 +17,11 @@
 
 %Author Data
 \begin{minipage}{0.4\textwidth}
-\begin{flushleft}
-Michael Hnatiw
-\end{flushleft}
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
 \begin{center}
-Stephen Lind
+\large Michael Hnatiw, 1684988\\
+\large Stephen Lind, 1735827\\
+\large Taylor Parrish, 1616044\\
 \end{center}
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-\begin{flushright}
-Taylor Parrish
-\end{flushright}
 \end{minipage}
 
 %bottom of page
@@ -45,6 +37,7 @@ Using MSPaint and Google Maps as user restriction tools.
 Ushahidi currently has no way to restrict user roles based on geographic location. There are a few issues with this, namely lack of local expertise and credibility. Administrators would be well served with a feature that would allow them to select a geographic region under which their reports will be allowed to operate.
 
 \section{Requirements}
+
 \subsection{Mock Up}
 \begin{itemize}
 \item The ideal solution is to use a graphical tool to select the region. Ushahidi currently supports some form of polygon selection, however our team will need to investigate the possibility of incorporating this pre-existing code into this addition. This feature would resemble the following figure.
@@ -60,15 +53,32 @@ Ushahidi currently has no way to restrict user roles based on geographic locatio
   \includegraphics[width=100mm]{mockupNomap.png}
   \captionof{figure}{Text based region selection}
 \end{minipage}
+
 \subsection{User Stories}
-\includegraphics[width=100mm]{ProjectBacklogImage.png}
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=100mm]{ProjectBacklogImage.png}
+  \captionof{figure}{Initial project backlog.}
+\end{minipage}
+
 \subsection{Must Haves}
--User hierarchy of geographic restriction.
-\includegraphics[width=100mm]{permissions.png}
--Some representation to the user of area of restriction or control.
+\begin{itemize}
+\item User hierarchy of geographic restriction.\\
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=100mm]{permissions.png}
+  \captionof{figure}{Permission flow.}
+\end{minipage}
+\item Some representation to the user of area of restriction or control.
+\end{itemize}
 
 \section{Time Line}
-\includegraphics[width=100mm]{UshahidiTimeline.png}
+\begin{minipage}{\linewidth}
+  \centering
+  \hspace*{-1in}
+  \includegraphics[width=180mm]{UshahidiTimeline.png}
+  \captionof{figure}{Projected sprint outline.}
+\end{minipage}
 
 \section{Approach}
 As Ushahidi's web framework runs on Kohana, this will naturally be an extension of the Model-View-Controller. At a more specific level, we will be using a modified scrum development scheme. As we are a small team we will not have a traditional Product Owner or Scrum Master. We as a team will decide the weighting and importance of user stories and incorporate them into the sprints themselves.
@@ -82,6 +92,8 @@ Ushahidi's code base for GUI geographic region selection is obscure and difficul
 -Technological risk, our team is new to PHP and Kohana. The upside to this is as our team is brought up to speed, our focus factor should increase.
 -Feature creep. As there is no project owner, our team's ambition could add to the project backlog unnecesarily.
 
-
+\vfill
+\begin{center}
 Project Razor created with la\TeX~.
+\end{center}
 \end{document}
