@@ -83,9 +83,9 @@ Ushahidi currently has no way to restrict user roles based on geographic locatio
 \section{Approach}
 As Ushahidi's web framework runs on Kohana, this will naturally be an extension of the Model-View-Controller. At a more specific level, we will be using a modified scrum development scheme. As we are a small team we will not have a traditional Product Owner or Scrum Master. We as a team will decide the weighting and importance of user stories and incorporate them into the sprints themselves.
 \begin{itemize}
-  \item Our team will produce weekly builds on the master branch. These will be considered stable working builds should the project need to be reverted back to a prior state. Our development branch will be considered out integration environment, with our final production build coming from our final master push.
-    \item Each weekly build will replae the current master branch. The current master branch will be moved and renamed into a version delimited branch. Each sprint will mark a major version number, with each build within the sprint forming the minor version number.
-      \item Our team will use the industry standar bug tracking software, JIRA. This should allow good cross platform usage.\\
+  \item Our team will produce weekly builds on the master branch. These will be considered stable working builds should the project need to be reverted back to a prior state. Our development branch will be considered our integration environment, with our final production build coming from our final master push.
+    \item Each weekly build will replace the current master branch. The current master branch will be moved and renamed into a version delimited branch. Each sprint will mark a major version number, with each build within the sprint forming the minor version number.
+      \item Our team will use the industry standard bug tracking software, JIRA. This should allow good cross platform usage.\\
 \begin{minipage}{\linewidth}
   \centering
   \includegraphics[width=100mm]{JIRAbug.png}
@@ -101,8 +101,10 @@ Ushahidi's code base for GUI geographic region selection is obscure and difficul
 -Time frame. We have 5 sprints comprising 9 weeks. Our team is involved with other tasks so we expect our focus factor to be low.
 -Business risk. As we lack a project owner, the task outline is vague and our deliverable may be not as expected.
 -Technological risk, our team is new to PHP and Kohana. The upside to this is as our team is brought up to speed, our focus factor should increase.
--Feature creep. As there is no project owner, our team's ambition could add to the project backlog unnecesarily.
+-Feature creep. As there is no project owner, our team's ambition could add to the project backlog unnecessarily.
 
+\section{Summary}
+Our goal is to produce a system that will implement GeoRoles that restrict and define a user's purpose within Ushahidi based on geography. This allows verifying, validating and visualizing disjointed information that is used by separate geographic regions and organizations. This project's scope is ambitious for the given timebox, but very achievable. Our team will implement this system in a concise, efficient and maintainable manner that will benefit users of Ushahidi for some time to come. 
 \vfill
 \begin{center}
 Project Razor created with la\TeX~.
