@@ -82,6 +82,17 @@ Ushahidi currently has no way to restrict user roles based on geographic locatio
 
 \section{Approach}
 As Ushahidi's web framework runs on Kohana, this will naturally be an extension of the Model-View-Controller. At a more specific level, we will be using a modified scrum development scheme. As we are a small team we will not have a traditional Product Owner or Scrum Master. We as a team will decide the weighting and importance of user stories and incorporate them into the sprints themselves.
+\begin{itemize}
+  \item Our team will produce weekly builds on the master branch. These will be considered stable working builds should the project need to be reverted back to a prior state. Our development branch will be considered out integration environment, with our final production build coming from our final master push.
+    \item Each weekly build will replae the current master branch. The current master branch will be moved and renamed into a version delimited branch. Each sprint will mark a major version number, with each build within the sprint forming the minor version number.
+      \item Our team will use the industry standar bug tracking software, JIRA. This should allow good cross platform usage.\\
+\begin{minipage}{\linewidth}
+  \centering
+  \includegraphics[width=100mm]{JIRAbug.png}
+  \captionof{figure}{JIRA Bug overview.}
+\end{minipage}
+\end{itemize}
+        
 
 \section{Obstacles}
 \subsection{Unknowns}
