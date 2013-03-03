@@ -1,0 +1,18 @@
+
+.title-side h3 { vertical-align: absbottom; 
+                 display: inline;
+                 margin-right: 300px;
+               }
+
+.green-button {font-size: 150%;  
+               border: 1px solid black;
+	       background-color: green; 
+               color: white;
+               height: 50px; 
+               width: 100px;
+             }
+.text-side textarea { margin-right: 90px; }
+.a { color: white;
+     text-decoration: none;
+     align: center;
+   }

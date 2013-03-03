@@ -1,0 +1,38 @@
+Feb.20:
+	Since all of our team members are preoccupied with other class material and course work, 
+	as well as the first sprint being dominated by midterms, our plans during reading week have fallen apart.
+
+	We are disorganized but are making progress in understanding Ushahidi's codebase.  No implementation has
+	been decided on as we all work independently trying things out.  Our highest priority goal still is to 
+	make the association explicitly defined the a User hiearchy (ie Superadmin-Admin-Member) which is already
+	implemented (may not be want we want though).
+		    
+	Reading week has turned into experimentation and understanding PHP and Ushahidi's codebase, meaning all the
+	implementation stories for this week must be pushed to the next sprint.
+
+	Although very undesirable, it is expected as out focus factor is very very low due to heavy course and project
+	work in 3 - 4 other classes for all team members (not to mean external responsibities).
+	     
+	This will be a reoccuring trend of pushing back main stories, but it is still likely we will have a stable
+	impelementation or at least prototype by the end of the term.
+Feb.23:
+	Did a bunch of Kohana tutorials to get a better understanding of the framework.  Most helpful was:
+	http://dev.kohanaframework.org/projects/kohana2/wiki/Kohana101
+
+	Note: view for Submit a New Report page is "/Team2/themes/default/views/reports/submit.php"
+Feb.24:
+	Built a simple PHP controller and view for a possible georole creation page, submit button links to the submit
+	page on the Ushahidi instance 
+	
+	***NOTE: cant seem to get stylesheet to work correctly inside any view created.
+	Seems kohana framework re-routes the link from /~jharvard/kohana/index.php/..." to just "/kohana/index.php/..."
+Feb.25:
+	Had a quick team meeting in during the CMPT 395 Lab, discussed where we are in terms of understanding the code base
+	and it seems we are still heavily confused.  We are behind alot in terms of what we set out to plan.  All team members
+	have done some kohana and php tutorials to gain a better understanding.  Agreed upon focusing on the first and most
+	important user story which is implementing the 'User Hiearchy'.  
+
+	Other members have other projects they ahd to work on so no further work was completed in the lab.
+
+	***gained better understanind go CSS stylesheet and how php works with HTML***
+	***created mockup CreateGeorole webpage in admin dashboard***
