@@ -36,3 +36,16 @@ Feb.25:
 
 	***gained better understanind go CSS stylesheet and how php works with HTML***
 	***created mockup CreateGeorole webpage in admin dashboard***
+Mar.3:
+	NOTE: to modify the general layout of an interface, need to modify the particular interfaces
+	"layout.php" file (ex. views/admin/layout.php)
+	
+	Added code to admin/layout.php on line 235 to test georole.css
+Mar.4
+	GEOMETRY layout from submit report page found in "themes/default/views/reports/submit.php"
+	GEOMETRY values from submit report page found in the $form[] array object on line 256
+	of "application/controllers/reports.php"
+	
+	$geometries object found in ./default/views/reports/submit_edit_js.php
+
+	*****drawCircle() function located at line 110 in views/map_common_js	

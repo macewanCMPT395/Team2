@@ -4,9 +4,8 @@
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    <title><?php echo html::specialchars($title) ?></title>
-   <link rel="stylesheet" type="text/css" href="http://localhost/~jharvard/Team2/media/css/tests/georole.css">
+</head>
 
-   
 <style type="text/css">
    h3#side { 
        vertical-align: absbottom;
@@ -61,8 +60,6 @@
    }
 
 </style>
-
-</head>
 
 <body>
    
