@@ -97,7 +97,7 @@ class Users_Controller extends Admin_Controller {
 		}
 
 		// Setup and initialize form field names
-		$form = array('username' => '', 'name' => '', 'email' => '', 'password' => '', 'notify' => '', 'role' => '');
+		$form = array('username' => '', 'name' => '', 'email' => '', 'password' => '', 'notify' => '', 'role' => '', 'georole' => '');
 
 		$this->template->content->user_id = $user_id;
 
@@ -131,6 +131,7 @@ class Users_Controller extends Admin_Controller {
 				$user->name = $post->name;
 				$user->email = $post->email;
 				$user->notify = $post->notify;
+				$user->georole = $post->georole;
 				if ($user_id == NULL)
 				{
 					$user->password = $post->password;
@@ -211,8 +212,8 @@ class Users_Controller extends Admin_Controller {
 					{
 						$role = $user_role->name;
 					}
-
-					$form = array('user_id' => $user->id, 'username' => $user->username, 'name' => $user->name, 'email' => $user->email, 'notify' => $user->notify, 'role' => $role);
+                    // THIS IS WHERE IT BREAKS!!!
+					$form = array('user_id' => $user->id, 'username' => $user->username, 'name' => $user->name, 'email' => $user->email, 'notify' => $user->notify, 'role' => $role, 'georole' => $georole);
 				}
 			}
 		}
@@ -237,6 +238,16 @@ class Users_Controller extends Admin_Controller {
 		$this->template->content->yesno_array = array('1' => utf8::strtoupper(Kohana::lang('ui_main.yes')), '0' => utf8::strtoupper(Kohana::lang('ui_main.no')));
 		$this->template->content->role_array = $role_array;
 	}
+	
+
+    public function georole()
+    {
+        $this->template->content = new View('admin/users/georole');
+        $this->template->content->title = "Test Page";
+        $this->template->content->user_msg = 'Applies to Which User*';
+        $this->template->content->loc_msg = 'Locations within GeoRole*';
+        $this->template->content->descrip = 'GeoRole Description* ';
+    }
 
 	public function roles()
 	{
@@ -339,6 +350,8 @@ class Users_Controller extends Admin_Controller {
 		$this->template->content->form_action = $form_action;
 		$this->template->js = new View('admin/users/roles_js');
 	}
+	
+	
 
 	/**
 	 * Checks if username already exists.
