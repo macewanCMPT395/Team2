@@ -127,7 +127,6 @@ $lang = array(
 	'from' => 'From',
 	'from_date' => 'From',
 	'geonames_timeout' => 'Geonames Timeout Error',
-	'georole' => 'Manage GeoRole',
 	'get_help' => 'Get Help',
 	'get_more_themes' => 'Get more themes',
 	'get_more_plugins' => 'Get more plugins',
