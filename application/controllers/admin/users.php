@@ -41,7 +41,7 @@ class Users_Controller extends Admin_Controller {
 		if ($_POST)
 		{
 			$post = Validation::factory(array_merge($_POST, $_FILES));
-
+			
 			// Add some filters
 			$post->pre_filter('trim', TRUE);
 
@@ -213,7 +213,7 @@ class Users_Controller extends Admin_Controller {
 						$role = $user_role->name;
 					}
                     // THIS IS WHERE IT BREAKS!!!
-					$form = array('user_id' => $user->id, 'username' => $user->username, 'name' => $user->name, 'email' => $user->email, 'notify' => $user->notify, 'role' => $role, 'georole' => $georole);
+					$form = array('user_id' => $user->id, 'username' => $user->username, 'name' => $user->name, 'email' => $user->email, 'notify' => $user->notify, 'role' => $role, 'georole' => $user->georole);
 				}
 			}
 		}
@@ -240,14 +240,15 @@ class Users_Controller extends Admin_Controller {
 	}
 	
 
-    public function georole()
-    {
-        $this->template->content = new View('admin/users/georole');
-        $this->template->content->title = "Test Page";
-        $this->template->content->user_msg = 'Applies to Which User*';
-        $this->template->content->loc_msg = 'Locations within GeoRole*';
-        $this->template->content->descrip = 'GeoRole Description* ';
-    }
+	public function georole()
+	{
+	  //controller that instantiates admin/user/georole
+	  $this->template->content = new View('admin/users/georole');
+	  $this->template->content->title = "GeoRole Page";
+	  $this->template->content->user_msg = 'Applies to Which User*';
+	  $this->template->content->loc_msg = 'Locations within GeoRole*';
+	  $this->template->content->descrip = 'GeoRole Description* ';
+	}
 
 	public function roles()
 	{

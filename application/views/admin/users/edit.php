@@ -64,7 +64,7 @@
 
                         <div class="row">
 							<h4><?php echo Kohana::lang('ui_main.georole');?> <span class="required"><?php echo Kohana::lang('ui_main.required'); ?></span></h4>
-							<!--THIS IS WHERE IT BREAKS (Remove the // before print to create text box-->
+<!--THIS IS WHERE WE ADD THINGS-->
 							<?php print form::input('georole', $form['georole'], ' class="text long2"'); ?>
 						</div>
 
