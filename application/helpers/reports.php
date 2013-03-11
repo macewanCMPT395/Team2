@@ -42,6 +42,7 @@ class reports_Core {
 		if ( ! isset($post) OR ! is_array($post))
 			return FALSE;
 		
+		//if ($post->incident)
 		// Create validation object
 		$post = Validation::factory($post)
 				->pre_filter('trim', TRUE)
@@ -62,7 +63,9 @@ class reports_Core {
 		
 		// Validate for maximum and minimum longitude values		
 		$post->add_rules('longitude','required','between[-180,180]');	
-		$post->add_rules('location_name','required', 'length[3,200]');
+		$post->add_rules('location_name','required','matches[person_first]');
+		//$post->add_error('location_name','georole');
+		//$post->add_rules('location_name','required', 'length[3,200]');
 
 		//XXX: Hack to validate for no checkboxes checked
 		if ( ! isset($post->incident_category))

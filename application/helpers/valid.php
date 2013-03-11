@@ -396,5 +396,5 @@ class valid_Core {
 			return false;
 		}
 	}	
-
+	
 } // End valid
