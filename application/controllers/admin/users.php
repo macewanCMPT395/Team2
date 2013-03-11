@@ -212,7 +212,7 @@ class Users_Controller extends Admin_Controller {
 					{
 						$role = $user_role->name;
 					}
-                    // THIS IS WHERE IT BREAKS!!!
+//ADDED Code HERE
 					$form = array('user_id' => $user->id, 'username' => $user->username, 'name' => $user->name, 'email' => $user->email, 'notify' => $user->notify, 'role' => $role, 'georole' => $user->georole);
 				}
 			}
