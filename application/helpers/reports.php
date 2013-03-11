@@ -62,10 +62,12 @@ class reports_Core {
 		$post->add_rules('latitude','required','between[-90,90]');
 		
 		// Validate for maximum and minimum longitude values		
-		$post->add_rules('longitude','required','between[-180,180]');	
-		$post->add_rules('location_name','required','matches[person_first]');
-		//$post->add_error('location_name','georole');
-		//$post->add_rules('location_name','required', 'length[3,200]');
+		$post->add_rules('longitude','required','between[-180,180]');
+		
+		//Validate for georole
+		$post->add_rules('location_name','required','length[3,200]');
+		$post->add_rules('location_name','required','check_georole');
+		
 
 		//XXX: Hack to validate for no checkboxes checked
 		if ( ! isset($post->incident_category))

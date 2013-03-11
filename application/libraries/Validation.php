@@ -855,5 +855,7 @@ class Validation_Core extends ArrayObject {
 	{
 		return ! preg_match('![^'.preg_quote(implode(',', $chars)).']!', $value);
 	}
+	
+	
 
 } // End Validation

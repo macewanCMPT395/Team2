@@ -71,6 +71,15 @@ class User_Model extends Auth_User_Model {
 		$user = ORM::factory('user')->find($user_id);
 		return $user->email;
 	}
+	
+	/**
+	 * Gets the GeoRole of a user
+	 */
+	public static function get_georole($user_id)
+	{
+		$user = ORM::factory('user')->find($user_id);
+		return $user->georole;
+	}
 
 	/**
 	 * Returns data for a user based on username

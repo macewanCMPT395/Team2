@@ -397,4 +397,26 @@ class valid_Core {
 		}
 	}	
 	
+	/**
+	*Function to check georole
+	*/
+	public static function check_georole($location)
+	{
+    $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
+    $locations = explode(",",strtolower(str_replace(' ','',$location)));
+    $location = $locations[0];
+    
+	    foreach($georoles as $loc)
+	    {
+	
+	        if ($loc == $location)
+	        {
+	            return true;
+	        }
+	    
+	    }
+	    return false;
+	 }
+	    
+	
 } // End valid
