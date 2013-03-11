@@ -82,6 +82,7 @@
    <div class="submit-incident">
      <a href="http://localhost/~jharvard/mesg.php">Submit</a>
    </div>
+   
 </body>
 
 </html>

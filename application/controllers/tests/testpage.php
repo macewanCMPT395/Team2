@@ -26,8 +26,7 @@ class TestPage_Controller extends Admin_Controller
     $this->template->content->title = "Test Page";
     $this->template->content->user_msg = 'Applies to Which User*';
     $this->template->content->loc_msg = 'Locations within GeoRole*';
-    $this->template->content->descrip = 'GeoRole Description* ';
-    
+    $this->template->content->descrip = 'GeoRole Description* ';   
   }
 
 

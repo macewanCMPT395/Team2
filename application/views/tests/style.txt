@@ -1,24 +1,57 @@
-   
-   <style type="text/css">
-        .sidebysidetitles { vertical-align: absbottom; 
-                            display: inline;
-                            margin-right: 300px;
-                          }
-        .greenbox { border: 1px solid black;
-	            background-color: green; 
-                    color: white; 
-                    height: 50px; 
-                    width: 100px;
-                  }
-         textarea { margin-right: 90px; 
-                  }
-         li { font-size: 150%;
-            }
-         a { color: white;
-	     text-decoration: none;
-	     align: center;
-           }
-   </style>
+<style type="text/css">
+   h3#side { 
+       vertical-align: absbottom;
+       display: inline;
+       margin-right: 220px;
+   }
+
+   .green-button { 
+       font-size: 150%;
+       border: 1px solid black;
+       background-color: green;
+       color: white;
+       height: 50px;
+       width: 100px;
+    }
+
+   textarea#side { 
+     margin-left: 10px;
+     margin-right: 80px; 
+     width: 350px;
+     height: 50px;
+     resize: none;
+   }
+
+   textarea#descrip {
+     margin-left: 10px;
+     width: 350px;
+     height: 250px;
+     resize: none;
+   }
+
+   div.submit-incident a,
+   div.submit-incident a:hover {
+     padding: 8px 10px 8px 35px;
+     background-color: #368C00;
+     background-image: url(http://localhost/~jharvard/Team2/themes/default/images/submit-incident.png);
+     background-position: 10px 8px;
+     background-repeat: no-repeat;
+     color: white;
+     text-transform: uppercase;
+     font-weight: bold;
+     font-size: 14px;
+     text-decoration: none;
+     float: right;
+   }
+
+   h2 a {
+     font-size: 14px;
+     line-height: 16px;
+     color: #00699B;
+     padding: 0 10px 0;
+   }
+
+</style>
 
 <body>
    

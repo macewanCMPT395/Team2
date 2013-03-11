@@ -27,13 +27,16 @@ class User_Model extends Auth_User_Model {
 	 * @param   string  riverid user id
 	 * @return  object  ORM object from saving the user
 	 */
-	public static function create_user($email,$password,$riverid=false,$name=false)
+	public static function create_user($email,$password,$georole,$riverid=false,$name=false)
 	{
 		$user = ORM::factory('user');
 
 		$user->email = $email;
 		$user->username = User_Model::random_username();
 		$user->password = $password;
+
+		//ADDED FOR GEOROLE
+		$user->georole = $georole;
 
 		if ($name != false)
 		{

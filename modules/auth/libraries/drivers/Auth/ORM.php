@@ -252,7 +252,8 @@ class Auth_ORM_Driver extends Auth_Driver {
 					if ( ! $user->id)
 					{
 						// Email isn't in our system, create a new user.
-						$user = User_Model::create_user($riverid->email,$riverid->password,$riverid->user_id);
+					        //MODIFIED for GEOROLE
+					  $user = User_Model::create_user($riverid->email,$riverid->password,$riverid->georole,$riverid->user_id);
 					}
 					else
 					{

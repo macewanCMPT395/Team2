@@ -49,3 +49,61 @@ Mar.4
 	$geometries object found in ./default/views/reports/submit_edit_js.php
 
 	*****drawCircle() function located at line 110 in views/map_common_js	
+	*****drawCircle function used in /themes/default/views/reports/reports_js.php
+
+
+*	To edit anything in any UI, you need to find the applicable .php file in
+	/applications/helpers and then add a string reference in the appropreiate
+	library file in /applications/i18n/en_US/ (ex. ui_admin.php)
+		
+	***all text names for all gui objects are dynamically named this way
+
+Mar.5
+	*** We have divided the tasks among our group members to, at this level:
+
+	read in a georole designated by a name and assign it to the user(is admin level, controler,Michael)
+
+	when a user tries to submit a report, it validates that it the area is within their georole (just by
+	comparing if their georole is the same as the city in which they are in, Taylor)
+
+	and all the backend database work (stephen)
+
+	***NOTE georoles at this point will just be string values designatinh cities
+
+	Michael: -to add georole proerty, need to modify User_Model in application/models/user
+	         -added column in database (under users) for georole
+		 -Need to modify create_user() function definition (add georole) in application/models/user.php
+		 -Need to modify create_user() function call in /modules/auth/libraries/drivers/Auth/ORM.php (line 256)
+		 -Need to modify create_user() function call in /application/controllers/login.php (line 255)
+		 (DONT KNOW FULL IMPLICATIONS OF CHANGES)
+		 
+		 ***successfully adds georole as string to user table in database from /admin/users/edit/
+
+Mar.8
+    
+     Michael: created two new files to test including a map:
+        - applications/controllers/tests/georolemap.php
+        - applications/views/tests/georole_map.php
+        
+     included code from:
+        - applications/controllers/admin/reports.php in function edit() starting at line 316
+        - applications/views/admin/reports/edit.php on line 203 to 234
+        
+     ***NOTE: GEOMETRY object in geometry table in database is made up of an SQL GEOMETRY Object
+              (ie contains POINT values)
+              
+             * "geometry" variable used in reports.php is made up of an array of values (one for each
+              unique row in the geometry table), and is part of a "form" object *
+             
+
+Mar. 10
+
+     No luck with decyphering how graphical geometry control works on applications/views/admin/reports/edit.php 
+     page....
+
+     ***However, will try to add a "custom GeoRole Filter" by modifying:
+     applications/controllers/reports.php
+     themes/default/views/reports/main.php starting at line 182
+
+     Will be working on this in class to more, as well as to make a controller parse a logged in users
+     georole data, automatically put it into this filter, and restrict list of reports to that location/locations
