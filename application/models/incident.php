@@ -259,6 +259,7 @@ class Incident_Model extends ORM {
 		// Normal query
 		if (! $count)
 		{
+
 			$sql = 'SELECT DISTINCT i.id incident_id, i.incident_title, i.incident_description, i.incident_date, i.incident_mode, i.incident_active, '
 				. 'i.incident_verified, i.location_id, l.country_id, l.location_name, l.latitude, l.longitude ';
 		}
@@ -282,11 +283,13 @@ class Incident_Model extends ORM {
 			$having_clause = "HAVING distance <= ".intval($radius['distance'])." ";
 		}
 
+//ADDED CODE HERE: added tab left join to include user who matches incident user_id
 		$sql .=  'FROM '.$table_prefix.'incident i '
 			. 'LEFT JOIN '.$table_prefix.'location l ON (i.location_id = l.id) '
 			. 'LEFT JOIN '.$table_prefix.'incident_category ic ON (ic.incident_id = i.id) '
-			. 'LEFT JOIN '.$table_prefix.'category c ON (ic.category_id = c.id) ';
-		
+			. 'LEFT JOIN '.$table_prefix.'category c ON (ic.category_id = c.id) '
+			. 'LEFT JOIN users u ON (i.user_id = u.id) ';
+
 		// Check if the all reports flag has been specified
 		if (array_key_exists('all_reports', $where) AND $where['all_reports'] == TRUE)
 		{
@@ -303,7 +306,17 @@ class Incident_Model extends ORM {
 		{
 			foreach ($where as $predicate)
 			{
-				$sql .= 'AND '.$predicate.' ';
+//ADDED CODE HERE: if predicate equals georole from user, dont add to query finds user by id from coressponding id in incident table, 
+//then match georole to predicate value (georole)
+//NOTE: if georole is null, predicate will be null so add that to conditional so it doesnt add the line to the query
+                if(strcmp((User_Model::get_georole(Auth::instance()->get_user()->id)),$predicate) == 0
+                    && strcmp(NULL,$predicate) != 0){
+                    //$sql .= 'AND u.georole = '.'"'.$predicate.'"'.' ';
+                    $sql .= 'AND l.location_name = '.'"'.$predicate.'"'.' ';
+                }
+                else if (strcmp(NULL,$predicate) != 0){
+				    $sql .= 'AND '.$predicate.' ';
+				}
 			}
 		}
 

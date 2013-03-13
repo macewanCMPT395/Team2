@@ -991,6 +991,10 @@ class reports_Core {
 			
 			self::$pagination = $pagination;
 			
+//ADD CODE HERE			
+			//add georole field and value to self::params
+			self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
+				
 			// Return paginated results
 			return Incident_Model::get_incidents(self::$params, self::$pagination, $order_field, $sort);
 		}

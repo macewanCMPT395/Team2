@@ -107,3 +107,46 @@ Mar. 10
 
      Will be working on this in class to more, as well as to make a controller parse a logged in users
      georole data, automatically put it into this filter, and restrict list of reports to that location/locations
+
+Mar. 11:
+     
+     *** Report Submission validaiton working with added georole attribute to user model
+     	 (city must be within users assigned georole before they can submit a report)
+
+     *** files modified:
+     	 application/helpers/admin.php        |    3 +++
+ 	 application/helpers/reports.php      |    9 +++++++--
+ 	 application/helpers/valid.php        |   26 ++++++++++++++++++++++++--
+ 	 application/libraries/Validation.php |    2 ++
+ 	 application/models/user.php          |    9 +++++++++
+ 	 
+ 	 Michael: gonna change themes/default/view/reports/list.php to edit view of report list,
+ 	          and application/controllers/reports.php (edit function called on line 167,
+ 	          fetch_incidents function located in helpers/reports.php,
+ 	          might need to modify models/incidents.php to make change for fetch_incidents
+ 	          
+ 	          
+ 	          ***Modifying incident.php at line 310 to add to the SQL query, if done right should
+ 	             reduce incidents or reports returned to the list, also modified reports.php at roughly
+ 	             line 1000 to include georole value when passing to fetch_incidents and get_incident functions
+ 	             needed to form query
+ 	             
+ 	             No Success so far
+Mar. 13:
+
+    Michael:  ***changes to helpers/reports.php and models/incidents.php files implicitly restrict the list
+              of reports to only incidents reported from a location that corresponds to a users georole, even if
+              filtered by other fields (ie if choose all categories, still reduces the list)
+              
+              ***if georole is null, doesnt add line to query so it includes all incidents in list view
+              (default behavior if georole is null is that all reports still added to list in views/reports.php)
+              
+              ***Still need to implement to parse georole and location to match in sql query if georole made of
+              multiple cities
+              
+              
+ 	             
+ 	          
+ 	          
+ 	 
+ 	 
