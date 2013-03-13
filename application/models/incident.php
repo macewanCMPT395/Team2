@@ -298,7 +298,7 @@ class Incident_Model extends ORM {
 		}
 		else
 		{
-			$sql .= 'WHERE i.incident_active = 1 ';
+			$sql .= 'WHERE (i.incident_active = 1) ';
 		}
 
 		// Check for the additional conditions for the query
@@ -306,13 +306,43 @@ class Incident_Model extends ORM {
 		{
 			foreach ($where as $predicate)
 			{
-//ADDED CODE HERE: if predicate equals georole from user, dont add to query finds user by id from coressponding id in incident table, 
-//then match georole to predicate value (georole)
+//ADDED CODE HERE: if predicate equals georole from user, dont add to query finds user by id 
+//from coressponding id in incident table, then match georole to predicate value (georole)
 //NOTE: if georole is null, predicate will be null so add that to conditional so it doesnt add the line to the query
                 if(strcmp((User_Model::get_georole(Auth::instance()->get_user()->id)),$predicate) == 0
                     && strcmp(NULL,$predicate) != 0){
-                    //$sql .= 'AND u.georole = '.'"'.$predicate.'"'.' ';
-                    $sql .= 'AND l.location_name = '.'"'.$predicate.'"'.' ';
+                    
+                    //determine if predicate location part of users georole
+                    $check = false;
+                    
+                    $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
+                    $locations = explode(",",strtolower(str_replace(' ','',$predicate)));
+                    $location = $locations[0];
+    
+	                foreach($georoles as $loc)
+	                {
+	                    //if location found in georole, add all locations in georole to array
+	                    if ($loc == $location)
+	                    {
+	                        $check = true;
+	                    }
+	                }
+	                //add AND clause is incident location part of users georole
+                    if($check == true){
+                        //$sql .= 'AND l.location_name = '.'"'.$location_in_georole.'"'.' ';
+                        $sql .= 'AND ('; 
+                        //add all georole locations as OR clauses to the AND clause (so includes all from georole)
+                        $last = end($georoles);
+                        foreach($georoles as $loc){
+                            $sql .= 'l.location_name = '.'"'.$loc.'"';
+                            if(strcmp($last,$loc) != 0){
+                                $sql .= ' OR ';
+                            }
+                        }
+                        $sql .= ') ';
+               
+                    }
+                    
                 }
                 else if (strcmp(NULL,$predicate) != 0){
 				    $sql .= 'AND '.$predicate.' ';
@@ -590,5 +620,6 @@ class Incident_Model extends ORM {
 		
 		parent::save();
 	}
+
 
 }
