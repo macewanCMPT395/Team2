@@ -2359,3 +2359,8 @@ div.ci_checkin {
 .user-color { width:160px;height:20px; }
 .badges { float:left;padding-left:25px;width:275px;}
 .badge img { margin:5px; }
+
+/* --- Added for Georole Styling --- */
+h1#georole { font-size: 10pt; color: #CC0000; }
+
+

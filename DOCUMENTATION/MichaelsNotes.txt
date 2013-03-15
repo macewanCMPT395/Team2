@@ -132,7 +132,7 @@ Mar. 11:
  	             needed to form query
  	             
  	             No Success so far
-Mar. 13:
+Mar. 13/14:
 
     Michael:  ***changes to helpers/reports.php and models/incidents.php files implicitly restrict the list
               of reports to only incidents reported from a location that corresponds to a users georole, even if
@@ -140,11 +140,25 @@ Mar. 13:
               
               ***if georole is null, doesnt add line to query so it includes all incidents in list view
               (default behavior if georole is null is that all reports still added to list in views/reports.php)
+              FIXED
               
               ***Still need to implement to parse georole and location to match in sql query if georole made of
               multiple cities
+              FIXED
               
-              
+              ***Adding title to reports view page to tell user limiting report list ot ehir georole
+                    -modified themes/default/views/reports/main.php on line 11
+                    -modified applicaiton/il8n/en_US/ui_main.php on line 196              
+                    -modified themes/default/css/style.css at end of file
+Mar.15:
+                 
+     Function Created:               
+              *modified _get_report_listing_view() function in /controllers/reports.php to
+               recalculate $stats_breadcrumb used in report list view to list how many reports are in the list
+                    -did this by making the function georole_report_count() in the same file (line starting at 206, and
+                    function at end of file)
+              *fixed georole header message in themes/default/views/reports/main.php to not display is georole is null
+                    
  	             
  	          
  	          

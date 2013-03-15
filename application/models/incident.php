@@ -329,7 +329,6 @@ class Incident_Model extends ORM {
 	                }
 	                //add AND clause is incident location part of users georole
                     if($check == true){
-                        //$sql .= 'AND l.location_name = '.'"'.$location_in_georole.'"'.' ';
                         $sql .= 'AND ('; 
                         //add all georole locations as OR clauses to the AND clause (so includes all from georole)
                         $last = end($georoles);

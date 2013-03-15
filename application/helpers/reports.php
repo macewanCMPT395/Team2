@@ -1000,6 +1000,10 @@ class reports_Core {
 		}
 		else
 		{
+//ADD CODE HERE			
+			//add georole field and value to self::params
+			self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
+			
 			// Return
 			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);;
 		}
