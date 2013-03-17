@@ -993,19 +993,18 @@ class reports_Core {
 			
 //ADD CODE HERE			
 			//add georole field and value to self::params
+			//NOTE: implicitly filters georole for reports list (if georole = null, includes all reports)
 			self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
 				
 			// Return paginated results
 			return Incident_Model::get_incidents(self::$params, self::$pagination, $order_field, $sort);
 		}
 		else
-		{
-//ADD CODE HERE			
-			//add georole field and value to self::params
-			self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
+		{	
+			//NOTE: no added implicit filter for georole for main map, takecare of in controllers/json.php
 			
 			// Return
-			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);;
+			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);
 		}
 	}	
 }

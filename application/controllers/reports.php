@@ -191,6 +191,8 @@ class Reports_Controller extends Main_Controller {
 		$report_listing->next_page = $pagination->next_page;
 		$report_listing->previous_page = $pagination->previous_page;
 
+//ADDED CODE HERE
+        $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 		if ($pagination->total_items > 0)
 		{
 			$current_page = ($pagination->sql_offset / $pagination->items_per_page) + 1;
@@ -202,9 +204,8 @@ class Reports_Controller extends Main_Controller {
 
 				// Show the total of report
 				// @todo This is only specific to the frontend reports theme
-//ADDED CODE HERE				
-				//accomidate georole, if null get all reports, else cal function to count reports within georole
-				$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+			
+				//accomidate georole, if null get all reports, else call function to count reports within georole
 				if(strcmp($georole,null) == 0){
 				    $report_listing->stats_breadcrumb = $pagination->current_first_item.'-'
 											. $pagination->current_last_item.' of '.$pagination->total_items.' '
@@ -218,7 +219,6 @@ class Reports_Controller extends Main_Controller {
 			else
 			{ 
 			    //accomidate georole, if null get all reports, else cal function to count reports within georole
-				$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 				if(strcmp($georole,null) == 0){
 				    // If we don't want to show pagination
 				    $report_listing->stats_breadcrumb = $pagination->total_items.' '.Kohana::lang('ui_admin.reports');
@@ -231,7 +231,6 @@ class Reports_Controller extends Main_Controller {
 		else
 		{
 		    //accomidate georole, if null get all reports, else cal function to count reports within georole
-		    $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 			if(strcmp($georole,null) == 0){
 			    $report_listing->stats_breadcrumb = '('.$pagination->total_items.' report'.$plural.')';
 			}

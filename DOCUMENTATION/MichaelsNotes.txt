@@ -159,7 +159,28 @@ Mar.15:
                     function at end of file)
               *fixed georole header message in themes/default/views/reports/main.php to not display is georole is null
                     
- 	             
+Mar. 17:
+    
+    ***implemented function to filter "markers" baseon georole before being rendered as geojson objects.***
+    ***right now, only renders incidents that are outside a users georole as black dots***
+       (NOTE: will changed behavior later to not make incidents clickable by the user)
+    
+        * - modified applications/controllers/json.php at line 133
+        
+    Function Created: in applications/controllers/json.php called filter_markers() at end of file
+    
+    **fixed and cleaned up code created previously in applications/models/incidents.php at line 312
+      by abstracting code into a function, and removed uneccessary code in applications/helpers/reports.php at end of file
+      
+    Function Created: in applications/models/incidents.php called filter_georole_list() at end of file
+    
+    ***Still need to fix:
+        -how clustering is done for markers on the map now as filtering by georole still doesnt affect the normal clusters
+         (ie a cluster of 3 markers that are filtered are still count 3 red even though one is black)
+        -on reports page, some number values as the dont implicitly change with the report list
+        
+         
+         
  	          
  	          
  	 
