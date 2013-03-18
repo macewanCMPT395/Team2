@@ -396,5 +396,31 @@ class valid_Core {
 			return false;
 		}
 	}	
-
+	
+	/**
+	*Function to check georole
+	*/
+	public static function check_georole($location)
+	{
+        $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
+        $locations = explode(",",strtolower(str_replace(' ','',$location)));
+        $location = $locations[0];
+        //if georole is null, default behavior is to show reports so return true
+        if(strcmp($georoles[0],null) == 0){
+            return true;
+        }
+    
+	    foreach($georoles as $loc)
+	    {
+	        //if location found within georole, return true, else false
+	        if ($loc == $location)
+	        {
+	            return true;
+	        }
+	    
+	    }
+	    return false;
+	 }
+	    
+	
 } // End valid

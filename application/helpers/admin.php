@@ -267,12 +267,16 @@ class admin_Core {
 
 		$menu .= ($this_sub_page == "users_edit") ? Kohana::lang('ui_admin.manage_users_edit') : "<a href=\"".url::site()."admin/users/edit/\">".Kohana::lang('ui_admin.manage_users_edit')."</a>";
 
+		$menu .= ($this_sub_page == "users_edit") ? Kohana::lang('ui_admin.geoRole') : "<a href=\"".url::site()."admin/users/edit/\">".Kohana::lang('ui_admin.geoRole')."</a>";
+
+
 		// Only display the link for roles where $display_roles = TRUE
 		if ($display_roles)
 		{
-			$menu .= ($this_sub_page == "roles") ? Kohana::lang('ui_admin.manage_roles') : "<a
-			href=\"".url::site()."admin/users/roles/\">".Kohana::lang('ui_admin.manage_roles')."</a>";
+			$menu .= ($this_sub_page == "roles") ? Kohana::lang('ui_admin.manage_roles') : "<a	href=\"".url::site()."admin/users/roles/\">".Kohana::lang('ui_admin.manage_roles')."</a>";
 		}
+		
+		$menu .= ($this_sub_page == "georole") ? Kohana::lang('ui_admin.manage_geo_roles') : "<a href=\"".url::site()."admin/users/georole/\">".Kohana::lang('ui_admin.manage_geo_roles')."</a>";
 
 		echo $menu;
 

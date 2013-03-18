@@ -27,13 +27,16 @@ class User_Model extends Auth_User_Model {
 	 * @param   string  riverid user id
 	 * @return  object  ORM object from saving the user
 	 */
-	public static function create_user($email,$password,$riverid=false,$name=false)
+	public static function create_user($email,$password,$georole,$riverid=false,$name=false)
 	{
 		$user = ORM::factory('user');
 
 		$user->email = $email;
 		$user->username = User_Model::random_username();
 		$user->password = $password;
+
+		//ADDED FOR GEOROLE
+		$user->georole = $georole;
 
 		if ($name != false)
 		{
@@ -142,7 +145,7 @@ class User_Model extends Auth_User_Model {
 
 		$post->add_rules('username','required','length[3,100]', 'alpha_numeric');
 		$post->add_rules('name','required','length[3,100]');
-        $post->add_rules('email','required','email','length[4,64]');
+		$post->add_rules('email','required','email','length[4,64]');
 
 		// If user id is not specified, check if the username already exists
 		if (empty($post->user_id))
@@ -399,5 +402,15 @@ class User_Model extends Auth_User_Model {
 		$key = Kohana::config('settings.forgot_password_secret');
 		return $salt . hash_hmac('sha1', $this->last_login . $this->email, $salt . $key);
 	}
+	
+    /**
+	 * Gets the GeoRole of a user
+	 */
+	public static function get_georole($user_id)
+	{
+		$user = ORM::factory('user')->find($user_id);
+		return $user->georole;
+	}
+	
 
 } // End User_Model

@@ -6,6 +6,13 @@
 				<?php echo Kohana::lang('ui_main.showing_reports_from', array(date('M d, Y', $oldest_timestamp), date('M d, Y', $latest_timestamp))); ?> 
 				<a href="#" class="btn-change-time ic-time"><?php echo Kohana::lang('ui_main.change_date_range'); ?></a>
 			</h1>
+			<!-- ADDED to indicate how report listed is implicitly filtered, adds empty header if georole is null -->
+			<h1 id="georole">
+				<?php if(strcmp(User_Model::get_georole(Auth::instance()->get_user()->id),null) != 0){
+				        echo Kohana::lang('ui_main.georole_report_header', array( User_Model::get_georole(Auth::instance()->get_user()->id) , Auth::instance()->get_user()->name )); 
+				      }
+				    ?> 
+			</h1>
 			
 			<div id="tooltip-box">
 				<div class="tt-arrow"></div>
@@ -179,6 +186,17 @@
 								
 							</ul>
 						</div>
+<!-- ADDED CODE HERE -->						
+						<h3>
+							<a href="#" class="small-link-button f-clear reset" onclick="removeParameterKey('v', 'fl-verification');">
+								<?php echo Kohana::lang('ui_main.clear'); ?>
+							</a>
+							<a class="f-title" href="#"><?php echo Kohana::lang('ui_main.georole'); ?></a>
+						</h3>
+						<div class="row">
+							<input type="text" id="georole" name="georole" value="" class="text long2">
+						</div>
+<!-- --------------- -->						
 						<h3>
 							<a href="#" class="small-link-button f-clear reset" onclick="removeParameterKey('cff', 'fl-customFields');">
 								<?php echo Kohana::lang('ui_main.clear'); ?>

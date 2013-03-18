@@ -42,6 +42,7 @@ class reports_Core {
 		if ( ! isset($post) OR ! is_array($post))
 			return FALSE;
 		
+		//if ($post->incident)
 		// Create validation object
 		$post = Validation::factory($post)
 				->pre_filter('trim', TRUE)
@@ -61,8 +62,11 @@ class reports_Core {
 		$post->add_rules('latitude','required','between[-90,90]');
 		
 		// Validate for maximum and minimum longitude values		
-		$post->add_rules('longitude','required','between[-180,180]');	
-		$post->add_rules('location_name','required', 'length[3,200]');
+		$post->add_rules('longitude','required','between[-180,180]');
+		
+		//Validate for georole
+		$post->add_rules('location_name','required','length[3,200]','check_georole');
+		
 
 		//XXX: Hack to validate for no checkboxes checked
 		if ( ! isset($post->incident_category))
@@ -986,13 +990,20 @@ class reports_Core {
 			
 			self::$pagination = $pagination;
 			
+//ADD CODE HERE			
+			//add georole field and value to self::params
+			//NOTE: implicitly filters georole for reports list (if georole = null, includes all reports)
+			self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
+				
 			// Return paginated results
 			return Incident_Model::get_incidents(self::$params, self::$pagination, $order_field, $sort);
 		}
 		else
-		{
+		{	
+			//NOTE: no added implicit filter for georole for main map, takecare of in controllers/json.php
+			
 			// Return
-			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);;
+			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);
 		}
 	}	
 }

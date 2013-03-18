@@ -447,5 +447,12 @@ class Main_Controller extends Template_Controller {
 		$this->template->header->header_block = $this->themes->header_block();
 		$this->template->footer->footer_block = $this->themes->footer_block();
 	}
+	
+	private function filter_map_georole($georole)
+	{
+	
+	
+	}
+	
 
 } // End Main

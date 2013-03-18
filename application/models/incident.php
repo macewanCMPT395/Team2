@@ -259,6 +259,7 @@ class Incident_Model extends ORM {
 		// Normal query
 		if (! $count)
 		{
+
 			$sql = 'SELECT DISTINCT i.id incident_id, i.incident_title, i.incident_description, i.incident_date, i.incident_mode, i.incident_active, '
 				. 'i.incident_verified, i.location_id, l.country_id, l.location_name, l.latitude, l.longitude ';
 		}
@@ -282,11 +283,13 @@ class Incident_Model extends ORM {
 			$having_clause = "HAVING distance <= ".intval($radius['distance'])." ";
 		}
 
+//ADDED CODE HERE: added tab left join to include user who matches incident user_id
 		$sql .=  'FROM '.$table_prefix.'incident i '
 			. 'LEFT JOIN '.$table_prefix.'location l ON (i.location_id = l.id) '
 			. 'LEFT JOIN '.$table_prefix.'incident_category ic ON (ic.incident_id = i.id) '
-			. 'LEFT JOIN '.$table_prefix.'category c ON (ic.category_id = c.id) ';
-		
+			. 'LEFT JOIN '.$table_prefix.'category c ON (ic.category_id = c.id) '
+			. 'LEFT JOIN users u ON (i.user_id = u.id) ';
+
 		// Check if the all reports flag has been specified
 		if (array_key_exists('all_reports', $where) AND $where['all_reports'] == TRUE)
 		{
@@ -295,15 +298,27 @@ class Incident_Model extends ORM {
 		}
 		else
 		{
-			$sql .= 'WHERE i.incident_active = 1 ';
+			$sql .= 'WHERE (i.incident_active = 1) ';
 		}
 
 		// Check for the additional conditions for the query
+		//(NOTE: need $georole value to compare (even as it is always == predicate
+		//as if not specified in conditional, no reports how on map on homepage)
+		$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 		if ( ! empty($where) AND count($where) > 0)
 		{
 			foreach ($where as $predicate)
 			{
-				$sql .= 'AND '.$predicate.' ';
+//ADDED CODE HERE
+                if(strcmp($predicate, null) != 0
+                    && strcmp($georole,$predicate) == 0){
+                    //if predicate not null and == georole, add to query find user by id from 
+                    //corressponding id in incident table, then match georole to predicate value (georole)
+                    $sql .= Incident_Model::filter_georole_list($predicate);   
+                }
+                else if(strcmp($predicate, null) != 0){
+				    $sql .= 'AND '.$predicate.' ';
+				}
 			}
 		}
 
@@ -336,7 +351,7 @@ class Incident_Model extends ORM {
 		Event::run('ushahidi_filter.get_incidents_sql', $sql);
 
 		// Kohana::log('debug', $sql);
-		return Database::instance()->query($sql);
+		return Database::instance()->query($sql); 
 	}
 
 	/**
@@ -577,5 +592,29 @@ class Incident_Model extends ORM {
 		
 		parent::save();
 	}
-
+	
+	/**
+	  * Function used to add to SQL query to filter incidents by georole
+	  */
+	 private function filter_georole_list($georole)
+	 {
+	    $string = '';
+                    
+        $georoles = explode(",", strtolower(str_replace(' ','',$georole)));
+	    
+	    //add AND clause is incident location part of users georole
+        $string .= 'AND ('; 
+        //add all georole locations as OR clauses to the AND clause (so includes all from georole)
+        $last = end($georoles);
+        foreach($georoles as $loc){
+            $string .= 'l.location_name = '.'"'.$loc.'"';
+            if(strcmp($last,$loc) != 0){
+                $string .= ' OR ';
+            }
+        }
+        $string .= ') ';
+               
+	    return $string;
+	 }
+	 
 }

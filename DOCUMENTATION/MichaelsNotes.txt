@@ -1,0 +1,187 @@
+Feb.20:
+	Since all of our team members are preoccupied with other class material and course work, 
+	as well as the first sprint being dominated by midterms, our plans during reading week have fallen apart.
+
+	We are disorganized but are making progress in understanding Ushahidi's codebase.  No implementation has
+	been decided on as we all work independently trying things out.  Our highest priority goal still is to 
+	make the association explicitly defined the a User hiearchy (ie Superadmin-Admin-Member) which is already
+	implemented (may not be want we want though).
+		    
+	Reading week has turned into experimentation and understanding PHP and Ushahidi's codebase, meaning all the
+	implementation stories for this week must be pushed to the next sprint.
+
+	Although very undesirable, it is expected as out focus factor is very very low due to heavy course and project
+	work in 3 - 4 other classes for all team members (not to mean external responsibities).
+	     
+	This will be a reoccuring trend of pushing back main stories, but it is still likely we will have a stable
+	impelementation or at least prototype by the end of the term.
+Feb.23:
+	Did a bunch of Kohana tutorials to get a better understanding of the framework.  Most helpful was:
+	http://dev.kohanaframework.org/projects/kohana2/wiki/Kohana101
+
+	Note: view for Submit a New Report page is "/Team2/themes/default/views/reports/submit.php"
+Feb.24:
+	Built a simple PHP controller and view for a possible georole creation page, submit button links to the submit
+	page on the Ushahidi instance 
+	
+	***NOTE: cant seem to get stylesheet to work correctly inside any view created.
+	Seems kohana framework re-routes the link from /~jharvard/kohana/index.php/..." to just "/kohana/index.php/..."
+Feb.25:
+	Had a quick team meeting in during the CMPT 395 Lab, discussed where we are in terms of understanding the code base
+	and it seems we are still heavily confused.  We are behind alot in terms of what we set out to plan.  All team members
+	have done some kohana and php tutorials to gain a better understanding.  Agreed upon focusing on the first and most
+	important user story which is implementing the 'User Hiearchy'.  
+
+	Other members have other projects they ahd to work on so no further work was completed in the lab.
+
+	***gained better understanind go CSS stylesheet and how php works with HTML***
+	***created mockup CreateGeorole webpage in admin dashboard***
+Mar.3:
+	NOTE: to modify the general layout of an interface, need to modify the particular interfaces
+	"layout.php" file (ex. views/admin/layout.php)
+	
+	Added code to admin/layout.php on line 235 to test georole.css
+Mar.4
+	GEOMETRY layout from submit report page found in "themes/default/views/reports/submit.php"
+	GEOMETRY values from submit report page found in the $form[] array object on line 256
+	of "application/controllers/reports.php"
+	
+	$geometries object found in ./default/views/reports/submit_edit_js.php
+
+	*****drawCircle() function located at line 110 in views/map_common_js	
+	*****drawCircle function used in /themes/default/views/reports/reports_js.php
+
+
+*	To edit anything in any UI, you need to find the applicable .php file in
+	/applications/helpers and then add a string reference in the appropreiate
+	library file in /applications/i18n/en_US/ (ex. ui_admin.php)
+		
+	***all text names for all gui objects are dynamically named this way
+
+Mar.5
+	*** We have divided the tasks among our group members to, at this level:
+
+	read in a georole designated by a name and assign it to the user(is admin level, controler,Michael)
+
+	when a user tries to submit a report, it validates that it the area is within their georole (just by
+	comparing if their georole is the same as the city in which they are in, Taylor)
+
+	and all the backend database work (stephen)
+
+	***NOTE georoles at this point will just be string values designatinh cities
+
+	Michael: -to add georole proerty, need to modify User_Model in application/models/user
+	         -added column in database (under users) for georole
+		 -Need to modify create_user() function definition (add georole) in application/models/user.php
+		 -Need to modify create_user() function call in /modules/auth/libraries/drivers/Auth/ORM.php (line 256)
+		 -Need to modify create_user() function call in /application/controllers/login.php (line 255)
+		 (DONT KNOW FULL IMPLICATIONS OF CHANGES)
+		 
+		 ***successfully adds georole as string to user table in database from /admin/users/edit/
+
+Mar.8
+    
+     Michael: created two new files to test including a map:
+        - applications/controllers/tests/georolemap.php
+        - applications/views/tests/georole_map.php
+        
+     included code from:
+        - applications/controllers/admin/reports.php in function edit() starting at line 316
+        - applications/views/admin/reports/edit.php on line 203 to 234
+        
+     ***NOTE: GEOMETRY object in geometry table in database is made up of an SQL GEOMETRY Object
+              (ie contains POINT values)
+              
+             * "geometry" variable used in reports.php is made up of an array of values (one for each
+              unique row in the geometry table), and is part of a "form" object *
+             
+
+Mar. 10
+
+     No luck with decyphering how graphical geometry control works on applications/views/admin/reports/edit.php 
+     page....
+
+     ***However, will try to add a "custom GeoRole Filter" by modifying:
+     applications/controllers/reports.php
+     themes/default/views/reports/main.php starting at line 182
+
+     Will be working on this in class to more, as well as to make a controller parse a logged in users
+     georole data, automatically put it into this filter, and restrict list of reports to that location/locations
+
+Mar. 11:
+     
+     *** Report Submission validaiton working with added georole attribute to user model
+     	 (city must be within users assigned georole before they can submit a report)
+
+     *** files modified:
+     	 application/helpers/admin.php        |    3 +++
+ 	 application/helpers/reports.php      |    9 +++++++--
+ 	 application/helpers/valid.php        |   26 ++++++++++++++++++++++++--
+ 	 application/libraries/Validation.php |    2 ++
+ 	 application/models/user.php          |    9 +++++++++
+ 	 
+ 	 Michael: gonna change themes/default/view/reports/list.php to edit view of report list,
+ 	          and application/controllers/reports.php (edit function called on line 167,
+ 	          fetch_incidents function located in helpers/reports.php,
+ 	          might need to modify models/incidents.php to make change for fetch_incidents
+ 	          
+ 	          
+ 	          ***Modifying incident.php at line 310 to add to the SQL query, if done right should
+ 	             reduce incidents or reports returned to the list, also modified reports.php at roughly
+ 	             line 1000 to include georole value when passing to fetch_incidents and get_incident functions
+ 	             needed to form query
+ 	             
+ 	             No Success so far
+Mar. 13/14:
+
+    Michael:  ***changes to helpers/reports.php and models/incidents.php files implicitly restrict the list
+              of reports to only incidents reported from a location that corresponds to a users georole, even if
+              filtered by other fields (ie if choose all categories, still reduces the list)
+              
+              ***if georole is null, doesnt add line to query so it includes all incidents in list view
+              (default behavior if georole is null is that all reports still added to list in views/reports.php)
+              FIXED
+              
+              ***Still need to implement to parse georole and location to match in sql query if georole made of
+              multiple cities
+              FIXED
+              
+              ***Adding title to reports view page to tell user limiting report list ot ehir georole
+                    -modified themes/default/views/reports/main.php on line 11
+                    -modified applicaiton/il8n/en_US/ui_main.php on line 196              
+                    -modified themes/default/css/style.css at end of file
+Mar.15:
+                 
+     Function Created:               
+              *modified _get_report_listing_view() function in /controllers/reports.php to
+               recalculate $stats_breadcrumb used in report list view to list how many reports are in the list
+                    -did this by making the function georole_report_count() in the same file (line starting at 206, and
+                    function at end of file)
+              *fixed georole header message in themes/default/views/reports/main.php to not display is georole is null
+                    
+Mar. 17:
+    
+    ***implemented function to filter "markers" baseon georole before being rendered as geojson objects.***
+    ***right now, only renders incidents that are outside a users georole as black dots***
+       (NOTE: will changed behavior later to not make incidents clickable by the user)
+    
+        * - modified applications/controllers/json.php at line 133
+        
+    Function Created: in applications/controllers/json.php called filter_markers() at end of file
+    
+    **fixed and cleaned up code created previously in applications/models/incidents.php at line 312
+      by abstracting code into a function, and removed uneccessary code in applications/helpers/reports.php at end of file
+      
+    Function Created: in applications/models/incidents.php called filter_georole_list() at end of file
+    
+    ***Still need to fix:
+        -how clustering is done for markers on the map now as filtering by georole still doesnt affect the normal clusters
+         (ie a cluster of 3 markers that are filtered are still count 3 red even though one is black)
+        -on reports page, some number values as the dont implicitly change with the report list
+        
+         
+         
+ 	          
+ 	          
+ 	 
+ 	 
