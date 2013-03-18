@@ -107,3 +107,81 @@ Mar. 10
 
      Will be working on this in class to more, as well as to make a controller parse a logged in users
      georole data, automatically put it into this filter, and restrict list of reports to that location/locations
+
+Mar. 11:
+     
+     *** Report Submission validaiton working with added georole attribute to user model
+     	 (city must be within users assigned georole before they can submit a report)
+
+     *** files modified:
+     	 application/helpers/admin.php        |    3 +++
+ 	 application/helpers/reports.php      |    9 +++++++--
+ 	 application/helpers/valid.php        |   26 ++++++++++++++++++++++++--
+ 	 application/libraries/Validation.php |    2 ++
+ 	 application/models/user.php          |    9 +++++++++
+ 	 
+ 	 Michael: gonna change themes/default/view/reports/list.php to edit view of report list,
+ 	          and application/controllers/reports.php (edit function called on line 167,
+ 	          fetch_incidents function located in helpers/reports.php,
+ 	          might need to modify models/incidents.php to make change for fetch_incidents
+ 	          
+ 	          
+ 	          ***Modifying incident.php at line 310 to add to the SQL query, if done right should
+ 	             reduce incidents or reports returned to the list, also modified reports.php at roughly
+ 	             line 1000 to include georole value when passing to fetch_incidents and get_incident functions
+ 	             needed to form query
+ 	             
+ 	             No Success so far
+Mar. 13/14:
+
+    Michael:  ***changes to helpers/reports.php and models/incidents.php files implicitly restrict the list
+              of reports to only incidents reported from a location that corresponds to a users georole, even if
+              filtered by other fields (ie if choose all categories, still reduces the list)
+              
+              ***if georole is null, doesnt add line to query so it includes all incidents in list view
+              (default behavior if georole is null is that all reports still added to list in views/reports.php)
+              FIXED
+              
+              ***Still need to implement to parse georole and location to match in sql query if georole made of
+              multiple cities
+              FIXED
+              
+              ***Adding title to reports view page to tell user limiting report list ot ehir georole
+                    -modified themes/default/views/reports/main.php on line 11
+                    -modified applicaiton/il8n/en_US/ui_main.php on line 196              
+                    -modified themes/default/css/style.css at end of file
+Mar.15:
+                 
+     Function Created:               
+              *modified _get_report_listing_view() function in /controllers/reports.php to
+               recalculate $stats_breadcrumb used in report list view to list how many reports are in the list
+                    -did this by making the function georole_report_count() in the same file (line starting at 206, and
+                    function at end of file)
+              *fixed georole header message in themes/default/views/reports/main.php to not display is georole is null
+                    
+Mar. 17:
+    
+    ***implemented function to filter "markers" baseon georole before being rendered as geojson objects.***
+    ***right now, only renders incidents that are outside a users georole as black dots***
+       (NOTE: will changed behavior later to not make incidents clickable by the user)
+    
+        * - modified applications/controllers/json.php at line 133
+        
+    Function Created: in applications/controllers/json.php called filter_markers() at end of file
+    
+    **fixed and cleaned up code created previously in applications/models/incidents.php at line 312
+      by abstracting code into a function, and removed uneccessary code in applications/helpers/reports.php at end of file
+      
+    Function Created: in applications/models/incidents.php called filter_georole_list() at end of file
+    
+    ***Still need to fix:
+        -how clustering is done for markers on the map now as filtering by georole still doesnt affect the normal clusters
+         (ie a cluster of 3 markers that are filtered are still count 3 red even though one is black)
+        -on reports page, some number values as the dont implicitly change with the report list
+        
+         
+         
+ 	          
+ 	          
+ 	 
+ 	 
