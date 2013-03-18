@@ -65,8 +65,7 @@ class reports_Core {
 		$post->add_rules('longitude','required','between[-180,180]');
 		
 		//Validate for georole
-		$post->add_rules('location_name','required','length[3,200]');
-		$post->add_rules('location_name','required','check_georole');
+		$post->add_rules('location_name','required','length[3,200]','check_georole');
 		
 
 		//XXX: Hack to validate for no checkboxes checked

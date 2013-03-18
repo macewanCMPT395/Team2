@@ -99,6 +99,7 @@ $lang = array(
 	'location_name' => array(
 		'length' => 'The "Location Name" field must be at least 3 and no more 200 characters long.',
 		'required' => 'The "Location Name" field is required.',
+		'check_georole' => 'This location is not in your georole.',
 	) ,
 	'longitude' => array(
 		'between' => 'The longitude field does not appear to contain a valid longitude.',
