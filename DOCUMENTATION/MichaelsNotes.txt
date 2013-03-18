@@ -179,6 +179,9 @@ Mar. 17:
          (ie a cluster of 3 markers that are filtered are still count 3 red even though one is black)
         -on reports page, some number values as the dont implicitly change with the report list
         
+Mar. 18: (STEVE LIND IS WRITING THIS)
+    -Editing this file to test github as we are having major issues with git.
+        
          
          
  	          
