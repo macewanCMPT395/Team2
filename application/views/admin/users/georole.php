@@ -74,7 +74,7 @@
    </h2>
    <h3 id="side"><?php echo $user_msg ?></h3>
    <h3 id="side"><?php echo $loc_msg ?></h3><br/>
-   <textarea id="side">Type in which Users this GeoRole may apply too...</textarea>
+   <textarea id="side">Type in which Users this GeoRole may apply to...</textarea>
    <textarea id="side">Type the Locations that are encompassed in the GeoRole...</textarea><br/>
    <h3><?php echo $descrip ?></h3>
    <textarea id="descrip">Briefly Describe the GeoRole...</textarea><br/>

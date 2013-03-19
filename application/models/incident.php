@@ -321,7 +321,12 @@ class Incident_Model extends ORM {
 				}
 			}
 		}
+<<<<<<< HEAD
         
+=======
+		
+
+>>>>>>> d5403011e427c6a8b0a0754c4c6f7ce2b3ba9e4b
 		// Might need "GROUP BY i.id" do avoid dupes
 		
 		// Add the having clause
