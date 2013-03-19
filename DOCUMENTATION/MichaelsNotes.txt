@@ -182,7 +182,14 @@ Mar. 17:
 Mar. 18: (STEVE LIND IS WRITING THIS)
     -Editing this file to test github as we are having major issues with git.
         
-         
+    Michael:
+        Fixed: 
+            - issue with cluttering (editted applications/controllers/json.php by making function to remove markers)
+            - fixed report list issue (eddited applications/models/incidents.php and modified function at end
+                to use query that splits and lower cases l.location_name)
+                
+                
+                     
          
  	          
  	          

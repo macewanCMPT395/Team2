@@ -138,17 +138,17 @@ class Json_Controller extends Template_Controller {
         //if georole != null, filter markers based on georole
         $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
         if(strcmp($georole,null) != 0){
-		    //call function to return markers (incidents) that are found outside of a users georole if nt null
+		    //call function to return markers (incidents) that are found outside of a users georole if not null
 		    $outside_georole = $this->filter_markers($georole, $markers);
-
+                        
 		    //*merge both arrays
-		    $json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "#0000FFFF", $icon, FALSE));
+		    //$json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "#0000FFFF", $icon, FALSE));
 		    //***remove duplicate values fromthe merge (as changed markers will overlap from the two arrays)
-		    $json_features = array_unique($json_features);
-		    //*merge unique markers with the ones outside georole again to get correct json_features
+		    //$json_features = array_unique($json_features);
+		    //*merge markers with the ones outside georole again to get correct json_features
 		    $json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "#0000FFFF", $icon, FALSE));
 		}
-		
+
 		$this->render_geojson($json_features);
 	}
 
@@ -331,16 +331,16 @@ class Json_Controller extends Template_Controller {
 		$singles = array();	// Non Clustered
 
 //ADDED CODE HERE
-        //remove incidents outside a users georole from any clusters created
-        $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+        //filter clustered markers by removing the ones outside of a users georole
+		$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
         if(strcmp($georole,null) != 0){
 		    //call function to return markers (incidents) that are found outside of a users georole if nt null
 		    $outside_georole = $this->filter_markers($georole, $markers);
             
-            //call function to remove incidents outside of georoel from $markers
-		    $markers = $this->remove_markers($outside_georole,$markers);
+            //iterate through markers that are found outside the georole, and remove them from the $markers array
+            $markers = $this->remove_markers($outside_georole,$markers);
+                        
 		}
-
 
 		// Loop until all markers have been compared
 		while (count($markers))
@@ -895,13 +895,13 @@ class Json_Controller extends Template_Controller {
 	{
 	    //collect markers that are not within the georole in this array
 	    $in_georole = array();
-	    
+
 	    $georoles = explode(",", strtolower(str_replace(' ','',$georole)));
-	    
+
 	    foreach($incidents as $in){
 	        $locs = explode(",", strtolower(str_replace(' ','',$in->location_name)));
-	        $loc = $locs[0];
-	        
+	        $loc = $locs[0]; //ensures only gets city names if cases like ex. edmonton, AB, Canada
+
 	        //use boolean to see if location in georole (if not boolean remains false)
 	        $check = FALSE;
 	        foreach($georoles as $role){
@@ -910,39 +910,37 @@ class Json_Controller extends Template_Controller {
 	                $check = TRUE;
 	            }
 	        }
-	        
+
 	        if($check == FALSE){
 	            //else if boolean is false, add it to the array
 	            array_push($in_georole,$in);
 	        }
-	        
+
 	    }
 	    //Return
 	    return $in_georole;
 	}
 
 
-    /**
-      * Function removes the incidents outside of a user georole that are put
-      * into the $outside_georole array from the $incidents array and returns
-      */
-    private function remove_markers($outside_georole, $incidents)
-    {
-             
-        $count = 0;            
+	/**
+	  * Function iterates through the $incident array, removing
+	  * any incidents from that array that are found outside the georole
+	  */
+	private function remove_markers($not_in_georole, $incidents)
+	{
+	    $count = 0;            
         foreach($incidents as $in){
-            $inlocs = explode(",", strtolower(str_replace(' ','',$in->location_name)));
-	        $inloc = $inlocs[0];
-	        
-            foreach($outside_georole as $role){
-                $loc = strtolower($role->location_name);
-                if(strcmp($loc,$inloc) == 0){
-                   unset($incidents[$count]);
+            $loc = strtolower($in->location_name);
+            foreach($not_in_georole as $role){
+                $role = strtolower($role->location_name);
+                if(strcmp($role,$loc) == 0){
+                    unset($incidents[$count]);
                 }
             }
             $count++;
         }
-    
-        return $incidents;
-    }
+
+	    return $incidents;
+	}
+	
 }

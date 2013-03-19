@@ -321,7 +321,7 @@ class Incident_Model extends ORM {
 				}
 			}
 		}
-
+        
 		// Might need "GROUP BY i.id" do avoid dupes
 		
 		// Add the having clause
@@ -607,7 +607,8 @@ class Incident_Model extends ORM {
         //add all georole locations as OR clauses to the AND clause (so includes all from georole)
         $last = end($georoles);
         foreach($georoles as $loc){
-            $string .= 'l.location_name = '.'"'.$loc.'"';
+            //$string .= 'l.location_name = '.'"'.$loc.'"';
+            $string .= 'FIND_IN_SET('.'"'.$loc.'"'.',LOWER(l.location_name))';
             if(strcmp($last,$loc) != 0){
                 $string .= ' OR ';
             }
