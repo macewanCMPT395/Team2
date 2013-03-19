@@ -4,11 +4,8 @@
 	RewriteEngine On
 
 	# Installation directory
-<<<<<<< HEAD
 	RewriteBase /~jharvard/Team2
-=======
 	RewriteBase /~jharvard/Ushahidi_Web
->>>>>>> develop
 
 	# Protect application and system files from being viewed
 	RewriteRule ^(application|modules|system|tests|sql) - [F,L]
