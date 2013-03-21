@@ -133,6 +133,7 @@ class Json_Controller extends Template_Controller {
 //ADDED CODE HERE
         // Get geojson features array
 		$function = "{$type}_geojson";
+        $json_features = $this->$function($markers, $category_id, $color, $icon);
         
         //if georole != null, filter markers based on georole
         $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
@@ -140,16 +141,8 @@ class Json_Controller extends Template_Controller {
 		    //call function to return markers (incidents) that are found outside of a users georole if not null
 		    $outside_georole = $this->filter_markers($georole, $markers);
 
-            //iterate through markers that are found outside the georole, and remove them from the $markers array
-            //$markers = $this->remove_markers($outside_georole,$markers);
-            
-            $json_features = $this->$function($markers, $category_id, $color, $icon);
-
 		    //*merge unique markers with the ones outside georole again to get correct json_features
 		    $json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "#0000FFFF", $icon, FALSE));
-		}
-		else{
-		    $json_features = $this->$function($markers, $category_id, $color, $icon);
 		}
 		
 		$this->render_geojson($json_features);
