@@ -17,5 +17,5 @@ $lang = array(
 	"checkin" => "Can checkin",
 	"checkin_admin" => "Manage checkins",
 	"admin_ui" => "Access Admin UI",
-	"member_ui" => "Access Members UI"
+	"member_ui" => "Access Members UI",
 );

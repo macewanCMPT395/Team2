@@ -300,9 +300,11 @@
 														<?php echo Kohana::lang('ui_main.approve');?>
 													</a>
 													<?php  else: ?>
+													<?php if (User_Model::georole()): ?>
 													<a href="#" onclick="reportAction('a','APPROVE', '<?php echo $incident_id; ?>');">
 														<?php echo Kohana::lang('ui_main.approve');?>
 													</a>
+													<?php endif; ?>	
 													<?php endif; ?>	
 												</li>
 												<?php endif; ?>
@@ -313,18 +315,22 @@
 													    onclick="reportAction('v','VERIFY', '<?php echo $incident_id; ?>');"><?php echo Kohana::lang('ui_main.verify');?>
 													</a>
 													<?php else: ?>
+													<?php if (User_Model::georole()): ?>
 													<a href="#" onclick="reportAction('v','VERIFY', '<?php echo $incident_id; ?>');">
 														<?php echo Kohana::lang('ui_main.verify');?>
 													</a>
+													<?php endif; ?>lo
 													<?php endif; ?>
 												</li>
 												<?php endif; ?>
 												<?php if (Auth::instance()->has_permission('reports_edit')): ?>
+												<?php if (User_Model::georole()): ?>
 												<li>
 													<a href="#" class="del" onclick="reportAction('d','DELETE', '<?php echo $incident_id; ?>');">
 														<?php echo Kohana::lang('ui_main.delete');?>
 													</a>
 												</li>
+												<?php endif; ?>
 												<?php endif; ?>
 											</ul>
 										</td>

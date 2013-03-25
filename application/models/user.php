@@ -321,7 +321,11 @@ class User_Model extends Auth_User_Model {
 		
 		parent::delete();
 	}
-	
+
+	public function georole()
+	{
+	  return false;
+	}
 	/**
 	 * Check if user has specified permission
 	 * @param $permission String permission name
