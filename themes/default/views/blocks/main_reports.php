@@ -1,5 +1,9 @@
 <?php blocks::open("reports");?>
-<?php blocks::title(Kohana::lang('ui_main.reports_listed'));?>
+<?php blocks::title(Kohana::lang('ui_main.reports_listed')); ?>
+<?php if(strcmp(User_Model::get_georole(Auth::instance()->get_user()->id),null) != 0){
+	     blocks::title(Kohana::lang('ui_main.georole_reports_listed', array( User_Model::get_georole(Auth::instance()->get_user()->id) , Auth::instance()->get_user()->name ))); 
+      }
+?>
 <table class="table-list">
 	<thead>
 		<tr>
@@ -16,6 +20,12 @@
 			<tr><td colspan="3"><?php echo Kohana::lang('ui_main.no_reports'); ?></td></tr>
 			<?php
 		}
+//ADDED CODE HERE
+        //call filter_incidents function to return array of reports/incidents within georole, if georole null then dont filter
+        if(strcmp(User_Model::get_georole(Auth::instance()->get_user()->id),null) != 0){
+            $incidents = blocks::filter_incidents(User_Model::get_georole(Auth::instance()->get_user()->id),$incidents);
+        }
+        
 		foreach ($incidents as $incident)
 		{
 			$incident_id = $incident->id;

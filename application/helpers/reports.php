@@ -1005,6 +1005,7 @@ class reports_Core {
 			// Return
 			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);
 		}
-	}	
+	}
+	   	
 }
 ?>

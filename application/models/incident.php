@@ -55,13 +55,14 @@ class Incident_Model extends ORM {
 	 * Prevents cached items from being reloaded
 	 * @var bool
 	 */
-	protected $reload_on_wakeup   = FALSE;
+	protected $reload_on_wakeup = FALSE;
 
 	/**
 	 * Gets a list of all visible categories
 	 * @todo Move this to the category model
 	 * @return array
-	 */
+	 */	 
+	 
 	public static function get_active_categories()
 	{
 		// Get all active categories
@@ -591,7 +592,8 @@ class Incident_Model extends ORM {
 		
 		parent::save();
 	}
-	
+
+//ADDED CODE HERE	
 	/**
 	  * Function used to add to SQL query to filter incidents by georole
 	  */

@@ -191,10 +191,49 @@ Mar. 18: (STEVE LIND IS WRITING THIS)
 Mar. 19:(Steve Lind)
      -Editing this file in order to clean github
                 
+Mar. 20:
+    Michael: created new local branch called "michael", will be working on that
+            *trying to edit report content-block on main map page by filtering by georole
+            *need to modify:
+                -themes/default/views/blocks/main_reports.php
+                -applications/il8n/en_Us/ui_main.php
+                -and possibly applications/helpers/blocks.php
                 
-                     
-         
- 	          
+            ***modified:
+                -applications/il8n/en_Us/ui_main.php at line 197 (added georole_reports_listed)        
+                -themes/default/views/blocks/main_reports.php
+                    -lines 2-7 to accomidate new report_listed title that includes user georole and name
+                    -lines 23-26 function call to filter $incidents array based on reports within georole
+                    
+            Function created:
+                -added function filter_incidents() to applications/helpers/blocks.php that takes a georole and
+                and incident array and filters the incidents to contain only those within the georole
+                
+            *Figured out that line 256 in applications/controllers/login.php causing runtime error when generating
+            new user (as required georole)
+            
+            
+Mar. 22:
+    Michael:
+        -modified /applications/controllers/reports.php at line 470 to redirect the page
+        if a specified incident, that is selected to have its details viewed, are outside a users georole
+        
+        ***Need to look to /themes/views/reports/submit.php line 20 to get how the red error box
+        works for the submit page and how to incorporate it into the main page
+        ***and helpers/report.php at line 38 to get how the error is generated
+        ***and il8n/en_US/reports.php  for georole how to see where the error messagesare
+        
+        ***Modified:
+            -/themes/default/views/main/layout.php at line 15 to add conditional to show a red error
+            box if certain variable when user trying to access incident theyre restricted from 
+            (restrict_incident_access set in /applications/controllers/reports.php)
+            
+ 	        -/applications/controllers/main.php at line at line 184 sets this variable mentioned above ^
+ 	        so it can be used by the layout view template to display or hide the error message  
+ 	        
+ 	        -/applications/models/incident.php at line 69: create variable that if user accesses incident outside georole,
+ 	        set to true and use to displa error in main page
+ 	        
  	          
  	 
  	 

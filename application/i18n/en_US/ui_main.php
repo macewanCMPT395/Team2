@@ -194,6 +194,7 @@ $lang = array(
 	'geometry_strokewidth' => 'Stroke Width',
 	'georole' => 'Georole',
 	'georole_report_header' => 'Limiting Incident List to: (%s) for user (%s)',
+	'georole_reports_listed' => '<span>Limited to (%s for %s)</span>',
 	'go' => 'Go',
 	'hashtag' => 'Hashtag',
 	'has_been' => 'Has Been',

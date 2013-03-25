@@ -212,19 +212,23 @@ class Reports_Controller extends Main_Controller {
 											. Kohana::lang('ui_main.reports');
 				}
 				else{
-				    $report_listing->stats_breadcrumb = $this->count_incidents_in_georole($georole,$incidents);
+				    $report_listing->stats_breadcrumb = $pagination->current_first_item.'-'
+				                                        .$this->count_incidents_in_georole($georole,$incidents).' of '
+				                                        .$pagination->total_items.' '
+											            .Kohana::lang('ui_main.reports');
 				}
 
 			}
 			else
 			{ 
-			    //accomidate georole, if null get all reports, else cal function to count reports within georole
+			    //accomidate georole, if null get all reports, else call function to count reports within georole
 				if(strcmp($georole,null) == 0){
 				    // If we don't want to show pagination
 				    $report_listing->stats_breadcrumb = $pagination->total_items.' '.Kohana::lang('ui_admin.reports');
 				}
 				else{
-				    $report_listing->stats_breadcrumb = $this->count_incidents_in_georole($georole,$incidents);
+				    $report_listing->stats_breadcrumb = $this->count_incidents_in_georole($georole,$incidents)
+				                                        .' '.Kohana::lang('ui_admin.reports');
 				}
 			}
 		}
@@ -447,6 +451,7 @@ class Reports_Controller extends Main_Controller {
 	 */
 	public function view($id = FALSE)
 	{
+		
 		$this->template->header->this_page = 'reports';
 		$this->template->content = new View('reports/detail');
 
@@ -468,6 +473,15 @@ class Reports_Controller extends Main_Controller {
 			{
 				url::redirect('reports/view/');
 			}
+			
+//ADDED CODE HERE
+            //determine if specific incident is within georole 
+            //(use function from helpers/valid.php)
+       	    $check = valid::check_georole($incident->location->location_name);
+       	    if($check == false){
+       	        //if incident locaiton not withing georole, redirect, else continue
+       	        url::redirect('../newerror.php/main');
+       	    }
 
 			// Comment Post?
 			// Setup and initialize form field names
@@ -1039,7 +1053,7 @@ class Reports_Controller extends Main_Controller {
 	     foreach($incidents as $in){
 	        $count++;
 	     }
-	     $string = sprintf("1-%s of %s reports",$count,$count);
+	     $string = sprintf("%s",$count);
 	     
 	     //NOTE: since incidents filtered by georole implicitly, just count number of incidents
 	     
@@ -1055,5 +1069,5 @@ class Reports_Controller extends Main_Controller {
 	     
 	     return $string;
 	 }
-
+	 
 }
