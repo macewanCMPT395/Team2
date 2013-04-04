@@ -23,7 +23,7 @@
 						</ul>
 					</td>
 					<td><?php echo $pagination; ?></td>
-					<td><?php echo $stats_breadcrumb; ?></td>
+					<td><?php if(Auth::instance()->logged_in("login")){ echo $stats_breadcrumb;}; ?></td>
 					<td class="last">
 						<ul class="link-toggle lt-icons-only">
 							<?php //@todo Toggle the status of these links depending on the current page ?>
@@ -162,7 +162,7 @@
 						</ul>
 					</td>
 					<td><?php echo $pagination; ?></td>
-					<td><?php echo $stats_breadcrumb; ?></td>
+					<td><?php if(Auth::instance()->logged_in("login")){ echo $stats_breadcrumb;}; ?></td>
 					<td class="last">
 						<ul class="link-toggle lt-icons-only">
 							<?php //@todo Toggle the status of these links depending on the current page ?>
