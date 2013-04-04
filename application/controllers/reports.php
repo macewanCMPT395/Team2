@@ -192,7 +192,9 @@ class Reports_Controller extends Main_Controller {
 		$report_listing->previous_page = $pagination->previous_page;
 
 //ADDED CODE HERE
+		if(Auth::instance()->logged_in("login")){
         $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		}
 		if ($pagination->total_items > 0)
 		{
 			$current_page = ($pagination->sql_offset / $pagination->items_per_page) + 1;
@@ -206,16 +208,18 @@ class Reports_Controller extends Main_Controller {
 				// @todo This is only specific to the frontend reports theme
 			
 				//accomidate georole, if null get all reports, else call function to count reports within georole
-				if(strcmp($georole,null) == 0){
+				if(Auth::instance()->logged_in("login")){
+				  if(strcmp($georole,null) == 0){
 				    $report_listing->stats_breadcrumb = $pagination->current_first_item.'-'
 											. $pagination->current_last_item.' of '.$pagination->total_items.' '
 											. Kohana::lang('ui_main.reports');
-				}
-				else{
+				  }
+				  else{
 				    $report_listing->stats_breadcrumb = $pagination->current_first_item.'-'
 				                                        .$this->count_incidents_in_georole($georole,$incidents).' of '
 				                                        .$pagination->total_items.' '
 											            .Kohana::lang('ui_main.reports');
+				  }
 				}
 
 			}
