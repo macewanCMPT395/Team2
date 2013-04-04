@@ -16,7 +16,7 @@
 			<div class="bg">
 				<h2>
 					<?php admin::user_subtabs("users", $display_roles); ?>
-				</h2>
+				</h2>		
 				<!-- report-table -->
 				<div class="report-form">
 					<!-- report-table -->

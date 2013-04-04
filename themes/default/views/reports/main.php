@@ -6,7 +6,7 @@
 				<?php echo Kohana::lang('ui_main.showing_reports_from', array(date('M d, Y', $oldest_timestamp), date('M d, Y', $latest_timestamp))); ?> 
 				<a href="#" class="btn-change-time ic-time"><?php echo Kohana::lang('ui_main.change_date_range'); ?></a>
 			</h1>
-			<!-- ADDED to indicate how report listed is implicitly filtered, adds empty header if georole is null -->
+			<!-- ADDED CODE HERE to indicate how report listed is implicitly filtered, adds empty header if georole is null -->
 			<h1 id="georole">
    <?php if(Auth::instance()->logged_in("login")){if(strcmp(User_Model::get_georole(Auth::instance()->get_user()->id),null) != 0){
 				        echo Kohana::lang('ui_main.georole_report_header', array( User_Model::get_georole(Auth::instance()->get_user()->id) , Auth::instance()->get_user()->name )); 

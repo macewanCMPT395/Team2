@@ -224,15 +224,56 @@ Mar. 22:
         ***and il8n/en_US/reports.php  for georole how to see where the error messagesare
         
         ***Modified:
-            -/themes/default/views/main/layout.php at line 15 to add conditional to show a red error
-            box if certain variable when user trying to access incident theyre restricted from 
-            (restrict_incident_access set in /applications/controllers/reports.php)
+            -/themes/default/views/main/layout.php at line 12 to add conditional to show a red error
+            box if current page is the georole_error.php page that copies the main pages session
             
- 	        -/applications/controllers/main.php at line at line 184 sets this variable mentioned above ^
- 	        so it can be used by the layout view template to display or hide the error message  
- 	        
- 	        -/applications/models/incident.php at line 69: create variable that if user accesses incident outside georole,
- 	        set to true and use to displa error in main page
+        ***File created: georole_error.php is an exact copy of the Main_Controller class in applications (applicaitons/main.php),
+           except for it displays an error message when a users page is redirected by the due to accessing a georole outside
+           of their georole  
+
+Mar. 29:
+    Michael: need to still modify the reports list as has some faults even though reports are filtered
+        Need to:
+            -change the number of pages listed, and the prev and next page buttons to work with the filtered list
+            (in controllers/reports.php in _get_reports_listing function,  in helpers/reports.php where $pagination
+            object set)
+            
+           
+        ***Modified:
+            - helper/reports.php starting at line 970 to accomidate georole to change $pagination and the navigational
+              bar above the reports list  
+            - moved count_incidents_in_georole() function from controllers/reports.php to helpers/reports.php so i can be used outside
+              of the controller,
+            * removed stat_breadcrumb changed mentioned a few days ago from controllers/reports.php starting at line 195
+              as changes to helpers now implements what the removed code did.
+             
+             
+              
+Apr. 3:
+    Michael: editing the files
+        - /controllers/admin/users.php
+        - /views/admin/users/edit.php
+        - /helpers/admin.php
+        
+        so an admin cannot edit a user outside their georole, cannot modify their own georole
+        or the georole of others, and restrict from modifying the superadmin
+
+Apr.4:
+    Michael:
+        - edited /i18n/en_US/ui_admin.php at line 95 to add error messages for admin's trying to edit
+          accounts the shouldn't
+        - edited /applications/views/admin/users/edit.php at line 20 to display error message if flags are set
+        - edited and add functions to applications/helpers/admin.php at line 309 to compare georoles and to
+          perform checks on the flag (including references the database)
+        * edited /controllers/admin/users.php for the function edit() starting at line 85 to incorporate error
+          flags for different conditions, if there set then the changes to the form is never propagated to the DB
+         ***SUCCESS***
+         
+          
+          
+         
+        
+        
  	        
  	          
  	 

@@ -967,6 +967,13 @@ class reports_Core {
 		
 		if ($paginate)
 		{
+//ADDED CODE HERE
+		    // Acquire Georole string for current User
+		    $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		    
+		    //Fetch incidents in order to count the number of incidents inside a Users GeoRole
+		    $incidents = reports::fetch_incidents(FALSE);
+		    
 			// Fetch incident count
 			$incident_count = Incident_Model::get_incidents(self::$params, false, $order_field, $sort, TRUE);
 			
@@ -974,10 +981,17 @@ class reports_Core {
 			$page_limit = (intval($items_per_page) > 0)
 			    ? $items_per_page 
 			    : intval(Kohana::config('settings.items_per_page'));
-					
-			$total_items = $incident_count->current()
-					? $incident_count->current()->report_count
-					: 0;
+			    
+            //if GeoRole of User not null, filter total_items to the number of incidents within georole
+            $total_items = 0;
+            if(strcmp($georole,NULL) != 0){
+                $total_items = reports::count_incidents_in_georole($georole,$incidents);
+            }
+            else{					
+			    $total_items = $incident_count->current()
+					    ? $incident_count->current()->report_count
+					    : 0;
+			}
 			
 			$pagination = new Pagination(array(
 					'style' => 'front-end-reports',
@@ -1001,12 +1015,35 @@ class reports_Core {
 		}
 		else
 		{	
-			//NOTE: no added implicit filter for georole for main map, takecare of in controllers/json.php
+			//NOTE: no added implicit filter for georole if $pagnate is FALSE (main purpose is 
+			//so main map isnt affected and still shows the incidents that are colored black based on a Users GeoRole
 			
 			// Return
 			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);
 		}
 	}
+	
+	/**
+	 * Function to count number of reports in report listing within georole
+	 * and return as function 
+	 */
+	 public static function count_incidents_in_georole($georole,$incidents)
+	 {
+	     $count = 0;
+	     
+         $georoles = explode(",", strtolower(str_replace(' ','',$georole)));
+	     foreach($incidents as $in){
+	        $locs = explode(",", strtolower(str_replace(' ','',$in->location_name)));
+	        $loc = $locs[0]; //ensures only gets city names if cases like ex. edmonton, AB, Canada
+	        foreach($georoles as $role){
+	            if(strcmp($loc,$role) == 0){
+	                $count++;
+	            }
+	        }
+	     }
+	     
+	     return $count;
+	 }
 	   	
 }
 ?>

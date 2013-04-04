@@ -12,12 +12,12 @@
  //ADDED CODE HERE
     $pageURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     //if restrict_incident_access set, display message on main page   
-    if ($pageURL=='http://localhost/~jharvard/Team2/newerror.php/main'): ?>
+    if ($pageURL=='http://localhost/~jharvard/Team2/georole_error.php/main'): ?>
 	<!-- red-box -->
 		<div class="red-box">
 			<h3>Access Denied!</h3>
 				<ul>
-					<li>Incident Location outside of current users GeoRole.</li>
+					<li><?php echo Kohana::lang('ui_main.georole_error'); ?></li>
 				</ul>
 		</div>
 	<?php endif; ?>	

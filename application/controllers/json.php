@@ -140,9 +140,9 @@ class Json_Controller extends Template_Controller {
         if(strcmp($georole,null) != 0){
 		    //call function to return markers (incidents) that are found outside of a users georole if not null
 		    $outside_georole = $this->filter_markers($georole, $markers);
-
+            
 		    //*merge unique markers with the ones outside georole again to get correct json_features
-		    $json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "#A8A8A8", $icon, FALSE));
+		    $json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "333333", $icon, FALSE));
 		}
 		
 		$this->render_geojson($json_features);
