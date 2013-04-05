@@ -1011,7 +1011,7 @@ class reports_Core {
 //ADD CODE HERE			
 			//add georole field and value to self::params
 			//NOTE: implicitly filters georole for reports list (if georole = null, includes all reports)
-			if(Auth::instance()->logged_in("login")){//self::$auth->logged_in("login")){
+			if(Auth::instance()->logged_in("login")){
 			self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
 			}
 			// Return paginated results

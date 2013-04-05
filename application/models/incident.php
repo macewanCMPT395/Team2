@@ -308,6 +308,9 @@ class Incident_Model extends ORM {
 		if(Auth::instance()->logged_in("login")){
 		$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 		}
+		else{
+		  $georole = NULL;
+		}
 		if ( ! empty($where) AND count($where) > 0)
 		{
 			foreach ($where as $predicate)

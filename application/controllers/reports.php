@@ -195,6 +195,9 @@ class Reports_Controller extends Main_Controller {
 		if(Auth::instance()->logged_in("login")){
         $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 		}
+		else{
+		  $georole = NULL;
+		}
 		if ($pagination->total_items > 0)
 		{
 			$current_page = ($pagination->sql_offset / $pagination->items_per_page) + 1;
