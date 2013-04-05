@@ -192,7 +192,12 @@ class Reports_Controller extends Main_Controller {
 		$report_listing->previous_page = $pagination->previous_page;
 
 //ADDED CODE HERE
+		if(Auth::instance()->logged_in("login")){
         $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		}
+		else{
+		  $georole = NULL;
+		}
 		if ($pagination->total_items > 0)
 		{
 			$current_page = ($pagination->sql_offset / $pagination->items_per_page) + 1;
