@@ -969,7 +969,9 @@ class reports_Core {
 		{
 //ADDED CODE HERE
 		    // Acquire Georole string for current User
+		  if(Auth::instance()->logged_in("login")){
 		    $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		  }
 		    
 		    //Fetch incidents in order to count the number of incidents inside a Users GeoRole
 		    $incidents = reports::fetch_incidents(FALSE);
@@ -984,9 +986,11 @@ class reports_Core {
 			    
             //if GeoRole of User not null, filter total_items to the number of incidents within georole
             $total_items = 0;
-            if(strcmp($georole,NULL) != 0){
+	    if(Auth::instance()->logged_in("login")){
+	      if(strcmp($georole,NULL) != 0){
                 $total_items = reports::count_incidents_in_georole($georole,$incidents);
-            }
+	      }
+	    }
             else{					
 			    $total_items = $incident_count->current()
 					    ? $incident_count->current()->report_count
