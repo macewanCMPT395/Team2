@@ -93,6 +93,7 @@ $lang = array(
 	'error_imap' => 'IMAP PHP Library is not installed',
 	'error_msg' => 'Error',
 	'error_post_incident' => 'Error, unable to post incident',
+	'error_superadmin' => 'Only a SUPERADMIN may modify a SUPERADMIN',
 	'error_admin' => 'adminstrators may not add/edit other adminstrators accounts or their own accounts',
 	'error_georole' => 'do not have privileges to add/edit this account, GeoRole of account is outside current users GeoRole',
 	'every_six_hours' => 'Every Six Hours',

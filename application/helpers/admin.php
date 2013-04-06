@@ -326,19 +326,23 @@ class admin_Core {
 	   * Function to set and return error flags by reference
 	   *
 	   */
-	 public static function set_admin_error_flag($user,&$admin_error,&$georole_error)
+	 public static function set_admin_error_flag($user,&$superadmin_error,&$admin_error,&$georole_error)
 	 {
+	    //set flag to prevent user from editing the SUPERADMIN
+	    if($user->id == 1){
+	        $superadmin_error = TRUE;
+	    }
 	    //set flag to prevent user from editing themselves (if not SUPERADMIN)
-        if($user->id == Auth::instance()->get_user()->id && $user->id != 1){
+        if( ($user->id == Auth::instance()->get_user()->id) && $user->id != 1){
 		    $admin_error = TRUE;
         }
         //set flag to prevent user from editing users outside their georole (if not SUPERADMIN)
         $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
-        if(admin::compare_georoles($georole,$user->georole) == 0 && $georole != NULL){
+        if( (admin::compare_georoles($georole,$user->georole) == 0) && ($user->georole != NULL) ){
 			$georole_error = TRUE;
         }
         //Query DB for user name based on role_id and user_id, 
-        //see if account to be modified is an Admin (matches 2) based on whether an empty set
+        //see if account to be modified is an Admin (role_id = 2) based on whether an empty set
         //is return from the query or not, if is an admin, then set flag to prevent user from editing other admin
 		$sql = "SELECT DISTINCT u.name FROM users u LEFT JOIN roles_users r ON (u.id = r.user_id)"
 		       ." WHERE (u.id = ".$user->id.") AND (r.role_id = 2)";
@@ -346,8 +350,8 @@ class admin_Core {
         $obj_arr = (array)$query_obj;
         //***case database object returned to an array, and get the last element key and value
         //from that array (ie total_rows), if set is empty then value will be 0, if not then the user
-        //is an admin so set admin error***
-        if(end($obj_arr) > 0){
+        //is an admin so set admin error (if not SUPERADMIN)***
+        if( (end($obj_arr) > 0) && $user->id != 1){
              $admin_error = TRUE;
         }
 	 

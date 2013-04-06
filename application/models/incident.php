@@ -306,11 +306,12 @@ class Incident_Model extends ORM {
 		//(NOTE: need $georole value to compare (even as it is always == predicate
 		//as if not specified in conditional, no reports how on map on homepage)
 		if(Auth::instance()->logged_in("login")){
-		$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		    $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 		}
 		else{
 		  $georole = NULL;
 		}
+		
 		if ( ! empty($where) AND count($where) > 0)
 		{
 			foreach ($where as $predicate)

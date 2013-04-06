@@ -23,10 +23,10 @@
 //ADDED CODE HERE
         //call filter_incidents function to return array of reports/incidents within georole, if georole null then dont filter
         if(Auth::instance()->logged_in("login")){
-        if(strcmp(User_Model::get_georole(Auth::instance()->get_user()->id),null) != 0){
-            $incidents = blocks::filter_incidents(User_Model::get_georole(Auth::instance()->get_user()->id),$incidents);
-        }
-	}
+            if(strcmp(User_Model::get_georole(Auth::instance()->get_user()->id),null) != 0){
+                $incidents = blocks::filter_incidents(User_Model::get_georole(Auth::instance()->get_user()->id),$incidents);
+            }
+	    }
         
 		foreach ($incidents as $incident)
 		{

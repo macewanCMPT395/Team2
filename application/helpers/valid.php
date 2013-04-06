@@ -402,9 +402,6 @@ class valid_Core {
 	*/
 	public static function check_georole($location)
 	{
-	  if(!Auth::instance()->logged_in("login")){
-	    return true;
-	  }
         $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
         $locations = explode(",",strtolower(str_replace(' ','',$location)));
         $location = $locations[0];

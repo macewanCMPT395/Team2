@@ -969,9 +969,9 @@ class reports_Core {
 		{
 //ADDED CODE HERE
 		    // Acquire Georole string for current User
-		  if(Auth::instance()->logged_in("login")){
-		    $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
-		  }
+		    if(Auth::instance()->logged_in("login")){
+		        $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		    }
 		    
 		    //Fetch incidents in order to count the number of incidents inside a Users GeoRole
 		    $incidents = reports::fetch_incidents(FALSE);
@@ -986,11 +986,9 @@ class reports_Core {
 			    
             //if GeoRole of User not null, filter total_items to the number of incidents within georole
             $total_items = 0;
-	    if(Auth::instance()->logged_in("login")){
-	      if(strcmp($georole,NULL) != 0){
+	        if(Auth::instance()->logged_in("login")){
                 $total_items = reports::count_incidents_in_georole($georole,$incidents);
-	      }
-	    }
+	        }
             else{					
 			    $total_items = $incident_count->current()
 					    ? $incident_count->current()->report_count
@@ -1012,7 +1010,7 @@ class reports_Core {
 			//add georole field and value to self::params
 			//NOTE: implicitly filters georole for reports list (if georole = null, includes all reports)
 			if(Auth::instance()->logged_in("login")){
-			self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
+			    self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
 			}
 			// Return paginated results
 			return Incident_Model::get_incidents(self::$params, self::$pagination, $order_field, $sort);
@@ -1034,15 +1032,23 @@ class reports_Core {
 	 public static function count_incidents_in_georole($georole,$incidents)
 	 {
 	     $count = 0;
-	     
-         $georoles = explode(",", strtolower(str_replace(' ','',$georole)));
-	     foreach($incidents as $in){
-	        $locs = explode(",", strtolower(str_replace(' ','',$in->location_name)));
-	        $loc = $locs[0]; //ensures only gets city names if cases like ex. edmonton, AB, Canada
-	        foreach($georoles as $role){
-	            if(strcmp($loc,$role) == 0){
-	                $count++;
+	     /* count if the georole is not NULL */
+	     if(strcmp($georole,NULL) != 0 ){
+            $georoles = explode(",", strtolower(str_replace(' ','',$georole)));
+	        foreach($incidents as $in){
+	            $locs = explode(",", strtolower(str_replace(' ','',$in->location_name)));
+	            $loc = $locs[0]; //ensures only gets city names if cases like ex. edmonton, AB, Canada
+	            foreach($georoles as $role){
+	                if(strcmp($loc,$role) == 0){
+	                    $count++;
+	                }
 	            }
+	         }
+	     }
+	     /* else, $georole == NULL meaning user is SUPERADMIN */
+	     else{
+	        foreach($incidents as $in){
+	            $count++;
 	        }
 	     }
 	     

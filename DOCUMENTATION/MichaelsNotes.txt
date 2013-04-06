@@ -270,7 +270,17 @@ Apr.4:
          ***SUCCESS***
          
           
-          
+Apr.5:
+    Michael: introducing authenticaiton when no user is logged in (so the website doesn't crash) introduced a bunch of 
+            errors among edited files (due to variables not be defined out of conditionals so if no user logged in, variables
+            dont get values).
+            
+                * fixed /themes/default/views/reports/list.php at line 26 and 165 (no need to authenticate $stats_breadcrumb)
+                * fixed applications/controllers/reports.php at line 212 (else statement to set default $stats_breadcrumb value)
+                * fixed /applications/helpers/reports.php at the EOF (made function count all roles if georole is NULLfor SUPERADMIN
+                    or no logged in)
+                
+                
          
         
         
