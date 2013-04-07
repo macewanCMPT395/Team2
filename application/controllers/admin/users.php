@@ -66,8 +66,8 @@ class Users_Controller extends Admin_Controller {
 
 		// Pagination
 		$pagination = new Pagination( array('query_string' => 'page', 'items_per_page' => (int)Kohana::config('settings.items_per_page_admin'), 'total_items' => ORM::factory('user')->count_all()));
-
-		$users = ORM::factory('user')->orderby('name', 'asc')->find_all((int)Kohana::config('settings.items_per_page_admin'), $pagination->sql_offset);
+        
+		$users = ORM::factory('user')->orderby('name', 'asc')->find_all((int)Kohana::config('settings.items_per_page_admin'), $pagination->sql_offset);      
 
 		// Set the flag for displaying the roles link
 		$this->template->content->display_roles = $this->display_roles;
@@ -110,7 +110,6 @@ class Users_Controller extends Admin_Controller {
 //ADDED CODE HERE
 		// Copy the form as errors, so the errors will be stored with keys corresponding to the form field names
 		$errors = $form;
-		$superadmin_error = FALSE;
 		$admin_error = FALSE;
 		$georole_error = FALSE;
 		$form_error = FALSE;
@@ -153,7 +152,7 @@ class Users_Controller extends Admin_Controller {
 //ADDED CODE HERE
                     //Prevent modification of admin accounts if current account is not a super user
                     //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
-                    admin::set_admin_error_flag($user,$superadmin_error,$admin_error,$georole_error);
+                    admin::set_admin_error_flag($user,$admin_error,$georole_error);
     
                     // Prevent modification of the main admin account username or role
 					if ($user->id != 1)
@@ -192,8 +191,7 @@ class Users_Controller extends Admin_Controller {
 				}
 //ADDED CODE HERE
                 //dont propagate changed values if any error flag is set
-                if( $superadmin_error == FALSE
-                    && $admin_error == FALSE
+                if( $admin_error == FALSE
                     && $georole_error == FALSE){
                    			
 				    $user->save();
@@ -238,11 +236,10 @@ class Users_Controller extends Admin_Controller {
 				{
 				    //Prevent modification of admin accounts if current account is not a super user
                     //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
-                    admin::set_admin_error_flag($user,$superadmin_error,$admin_error,$georole_error);
+                    admin::set_admin_error_flag($user,$admin_error,$georole_error);
                     //set appropreiate errors if flags are set
-                    if($superadmin_error == TRUE
-                        || $admin_error == TRUE
-                        || $georole_error == TRUE){
+                    if( $admin_error
+                        || $georole_error){
                         $form_error = TRUE;
                     }
 				
@@ -274,7 +271,6 @@ class Users_Controller extends Admin_Controller {
 		$this->template->content->form = $form;
 		$this->template->content->errors = $errors;
 //ADDED CODE HERE
-        $this->template->content->superadmin_error = $superadmin_error;
         $this->template->content->admin_error = $admin_error;
         $this->template->content->georole_error = $georole_error;
 		$this->template->content->form_error = $form_error;

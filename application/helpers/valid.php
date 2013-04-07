@@ -405,6 +405,7 @@ class valid_Core {
         $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
         $locations = explode(",",strtolower(str_replace(' ','',$location)));
         $location = $locations[0];
+        
         //if georole is null, default behavior is to show reports so return true
         if(strcmp($georoles[0],null) == 0){
             return true;

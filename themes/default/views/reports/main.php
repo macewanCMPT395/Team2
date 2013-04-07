@@ -188,17 +188,7 @@
 								
 							</ul>
 						</div>
-<!-- ADDED CODE HERE -->						
-						<h3>
-							<a href="#" class="small-link-button f-clear reset" onclick="removeParameterKey('v', 'fl-verification');">
-								<?php echo Kohana::lang('ui_main.clear'); ?>
-							</a>
-							<a class="f-title" href="#"><?php echo Kohana::lang('ui_main.georole'); ?></a>
-						</h3>
-						<div class="row">
-							<input type="text" id="georole" name="georole" value="" class="text long2">
-						</div>
-<!-- --------------- -->						
+			
 						<h3>
 							<a href="#" class="small-link-button f-clear reset" onclick="removeParameterKey('cff', 'fl-customFields');">
 								<?php echo Kohana::lang('ui_main.clear'); ?>

@@ -32,9 +32,6 @@
 						}
 						?>
 						<?php
-						if ($superadmin_error) {
-				            print "<li>" .Kohana::lang('ui_admin.error_superadmin'). "</li>";
-				        }
 				        if ($admin_error) {
 				            print "<li>" .Kohana::lang('ui_admin.error_admin'). "</li>";
 				        }

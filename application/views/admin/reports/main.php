@@ -109,7 +109,7 @@
 						</h3>
 					</div>
 				<?php endif; ?>
-				
+			    
 				<!-- report-table -->
 				<?php print form::open(NULL, array('id' => 'reportMain', 'name' => 'reportMain')); ?>
 					<input type="hidden" name="action" id="action" value="">

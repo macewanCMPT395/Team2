@@ -68,19 +68,28 @@
 										</tr>
 									<?php
 									}
+									
+									$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 									foreach ($users as $user)
 									{
-										$user_id = $user->id;
-										$username = $user->username;
-										$password = $user->password;
-										$name = $user->name;
-										$email = $user->email;
+	//ADDED CODE HERE                   //filter users displayed based on current admins georole
+	                                    //(members within their georole, all admins, filter out SUPERADMIN)
+	                                    //(if current user is SUPERADMIN, filter no one)
+	                                    if( (admin::compare_georoles($georole,$user->georole) == TRUE) 
+	                                        || (admin::determine_if_admin($user) == TRUE) 
+	                                        || (Auth::instance()->get_user()->id == 1) ){
+	                                                  								
+										        $user_id = $user->id;
+										        $username = $user->username;
+										        $password = $user->password;
+										        $name = $user->name;
+										        $email = $user->email;
 
-										// Show the highest role, defaulting to "none"
-										$role = Kohana::lang('ui_main.none');
-										foreach ($user->roles as $user_role) {
-											$role = $user_role->name;
-										}
+										        // Show the highest role, defaulting to "none"
+										        $role = Kohana::lang('ui_main.none');
+										        foreach ($user->roles as $user_role) {
+											        $role = $user_role->name;
+										        }
 										?>
 										<tr>
 
@@ -123,6 +132,7 @@
 											</td>
 										</tr>
 										<?php
+										}
 									}
 									?>
 								</tbody>
