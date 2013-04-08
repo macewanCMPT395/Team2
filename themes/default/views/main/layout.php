@@ -11,7 +11,9 @@
     <?php 
  //ADDED CODE HERE
     $pageURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    //if restrict_incident_access set, display message on main page   
+    /**
+        if restrict_incident_access set, display message on main page
+     **/
     if ($pageURL=='http://localhost/~jharvard/Team2/georole_error.php/main'): ?>
 	<!-- red-box -->
 		<div class="red-box">

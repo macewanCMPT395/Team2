@@ -396,31 +396,36 @@ class valid_Core {
 			return false;
 		}
 	}	
-	
+
 	/**
-	*Function to check georole
+	*Function to check the location against all the locations in the users
+	*users basic string compare to determine if the location is in your georole
+	*If the user does not have a georole or is not logged in it will return true
+	*$location - a string that will be compared against the georole
+	*return - a boolean value. true if location is in the georole/user not logged in/no georole, false - if it is not in the georole 
 	*/
 	public static function check_georole($location)
 	{
+	  //if no one is logged in return true, to prevent runtime errors
+	  if(Auth::instance()->logged_in("login")){
+	    return true;
+	  }
         $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
         $locations = explode(",",strtolower(str_replace(' ','',$location)));
-        $location = $locations[0];
-        
+        $location = $locations[0];      
         //if georole is null, default behavior is to show reports so return true
         if(strcmp($georoles[0],null) == 0){
-            return true;
+            return TRUE;
         }
-    
 	    foreach($georoles as $loc)
 	    {
 	        //if location found within georole, return true, else false
 	        if ($loc == $location)
 	        {
-	            return true;
-	        }
-	    
+	            return TRUE;
+	        }    
 	    }
-	    return false;
+	    return FALSE;
 	 }   
 	
 } // End valid

@@ -295,6 +295,7 @@
 											<ul>
 												<?php if (Auth::instance()->has_permission('reports_approve')): ?>
 												<li class="none-separator">
+												   //limit the users view based on their georole
 													<?php if (User_Model::verify_in_georole($incident_location)): ?>
 													<?php if ($incident_approved): ?>
 													<a href="#" class="status_yes" onclick="reportAction('u','UNAPPROVE', '<?php echo $incident_id; ?>');">
@@ -311,6 +312,7 @@
 												<?php endif; ?>
 												<?php if (Auth::instance()->has_permission('reports_verify')): ?>
 												<li>
+												   //limit users view based on their georole
 												    <?php if (User_Model::verify_in_georole($incident_location)): ?>
 													<?php if ($incident_verified): ?>
 													<a href="#" class="status_yes" 
@@ -325,6 +327,7 @@
 												</li>
 												<?php endif; ?>
 												<?php if (Auth::instance()->has_permission('reports_edit')): ?>
+												    //limit the users view based on gerole
 												<?php if (User_Model::verify_in_georole($incident_location)): ?>
 												<li>
 													<a href="#" class="del" onclick="reportAction('d','DELETE', '<?php echo $incident_id; ?>');">

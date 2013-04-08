@@ -192,7 +192,9 @@ class Reports_Controller extends Main_Controller {
 		$report_listing->previous_page = $pagination->previous_page;
 
 //ADDED CODE HERE
-		//resolves PAGE NOT FOUND on reports_list (JIRA UGC-4 BUG)
+		/**
+		    resolves PAGE NOT FOUND on reports_list (JIRA UGC-4 BUG)
+		 **/
 		$georole = NULL;
 		
 		if ($pagination->total_items > 0)
@@ -207,7 +209,9 @@ class Reports_Controller extends Main_Controller {
 				// Show the total of report
 				// @todo This is only specific to the frontend reports theme
 			
-				//accomidate georole, if null get all reports, else call function to count reports within georole
+				/**
+				    accomidate georole, if null get all reports, else call function to count reports within georole
+				 **/
 				if(strcmp($georole,null) != 0){
 				    $report_listing->stats_breadcrumb = $pagination->current_first_item.'-'
 				                                        .$this->count_incidents_in_georole($georole,$incidents).' of '
@@ -463,7 +467,9 @@ class Reports_Controller extends Main_Controller {
 			}
 			
 //ADDED CODE HERE
-            //determine if specific incident is within georole (use function from helpers/valid.php)
+            /**
+                determine if specific incident is within georole (use function from helpers/valid.php)
+             **/
             if(Auth::instance()->logged_in("login")){
        	        $check = valid::check_georole($incident->location->location_name);
        	        if($check == false){
