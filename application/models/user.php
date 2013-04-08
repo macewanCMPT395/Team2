@@ -321,9 +321,21 @@ class User_Model extends Auth_User_Model {
 		
 		parent::delete();
 	}
-
+	
+	/**Checks if the location is in users georole
+	 *uses basic string compare, 
+	 * normal usage is to modify the view on a reports page
+	 *$location - string containing the location
+	 *return - boolean- 
+	 *    true - user has no georole, no user is logged in, or if location is in the users georole
+	 *    false - location is not in the georole
+	 */
 	public function verify_in_georole($location)
 	{
+	  //makes sure a user is logged in to prevent runtime errors
+	  if(Auth::instance()->logged_in("login")){
+	    return true;
+	  }
 	  $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
 	  $locations = explode(",",strtolower(str_replace(' ','',$location)));
 	  $location = $locations[0];
