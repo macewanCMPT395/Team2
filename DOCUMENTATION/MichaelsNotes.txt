@@ -1,5 +1,6 @@
-Feb.20:
-	Since all of our team members are preoccupied with other class material and course work, 
+Feb.11 - Feb.20:
+
+    All of our team members are preoccupied with other class material and course work, 
 	as well as the first sprint being dominated by midterms, our plans during reading week have fallen apart.
 
 	We are disorganized but are making progress in understanding Ushahidi's codebase.  No implementation has
@@ -14,301 +15,249 @@ Feb.20:
 	work in 3 - 4 other classes for all team members (not to mention external responsibities).
 	     
 	This will be a reoccuring trend of pushing back main stories, but it is still likely we will have a stable
-	impelementation or at least prototype by the end of the term.
-Feb.23:
-	Did a bunch of Kohana tutorials to get a better understanding of the framework.  Most helpful was:
-	http://dev.kohanaframework.org/projects/kohana2/wiki/Kohana101
+	implementation or at least prototype by the end of the term.
+	
+Feb.20 - Feb.23:
 
-	Note: view for Submit a New Report page is "/Team2/themes/default/views/reports/submit.php"
-Feb.24:
+	Found a few Kohana tutorials to get a better understanding of the framework.  Most helpful was:
+	http://dev.kohanaframework.org/projects/kohana2/wiki/Kohana101, passed them around to other teammates.
+
+	Found out that view for Submit a New Report page is "/Team2/themes/default/views/reports/submit.php"
+	
+Feb.23 - Feb.24:
+
 	Built a simple PHP controller and view for a possible georole creation page, submit button links to the submit
 	page on the Ushahidi instance 
 	
-	***NOTE: cant seem to get stylesheet to work correctly inside any view created.
+	cant seem to get stylesheet to work correctly inside any view created.
 	Seems kohana framework re-routes the link from /~jharvard/kohana/index.php/..." to just "/kohana/index.php/..."
-Feb.25:
+	
+Feb.24 - Feb.27:
 	Had a quick team meeting in during the CMPT 395 Lab, discussed where we are in terms of understanding the code base
 	and it seems we are still heavily confused.  We are behind alot in terms of what we set out to plan.  All team members
-	have done some kohana and php tutorials to gain a better understanding.  Agreed upon focusing on the first and most
-	important user story which is implementing the 'User Hiearchy'.  
+	have done some kohana and php tutorials to gain a better understanding.
+	
+	All members have other projects they had to work on so no further work was completed in the lab.
 
-	Other members have other projects they ahd to work on so no further work was completed in the lab.
+    Overall the team has: 
+	    ***gained better understanind go CSS stylesheet and how php works with HTML***
+	    ***created mockup CreateGeorole webpage in admin dashboard***
+	
+Feb.28 - Mar.3:
 
-	***gained better understanind go CSS stylesheet and how php works with HTML***
-	***created mockup CreateGeorole webpage in admin dashboard***
-Mar.3:
-	NOTE: to modify the general layout of an interface, need to modify the particular interfaces
+	Discovered that in order to modify the general layout of an interface, need to modify the particular interfaces
 	"layout.php" file (ex. views/admin/layout.php)
 	
 	Added code to admin/layout.php on line 235 to test georole.css
-Mar.4
-	GEOMETRY layout from submit report page found in "themes/default/views/reports/submit.php"
-	GEOMETRY values from submit report page found in the $form[] array object on line 256
-	of "application/controllers/reports.php"
 	
-	$geometries object found in ./default/views/reports/submit_edit_js.php
+Mar.3 - Mar.4:
+
+	GEOMETRY layout from submit report page found in themes/default/views/reports/submit.php
+	GEOMETRY values from submit report page found in the $form[] array object on line 256 of 
+	/application/controllers/reports.php and $geometries object found in ./default/views/reports/submit_edit_js.php
 
 	*****drawCircle() function located at line 110 in views/map_common_js	
 	*****drawCircle function used in /themes/default/views/reports/reports_js.php
 
-
-*	To edit anything in any UI, you need to find the applicable .php file in
+	Discovered that in order to edit anything in any UI, you need to find the applicable .php file in
 	/applications/helpers and then add a string reference in the appropreiate
 	library file in /applications/i18n/en_US/ (ex. ui_admin.php)
 		
-	***all text names for all gui objects are dynamically named this way
+	*** all text names for all gui objects are dynamically named this way ***
 
-Mar.5
-	*** We have divided the tasks among our group members to, at this level:
+Mar.4 - Mar.5:
 
-	Michae = read in a georole designated by a name and assign it to the user(is admin level, controler)
-
+	We have divided the tasks among our group members to, at this level:
+	
+	Michael = read in a georole designated by a name and assign it to the user(is admin level, controler)
 	Taylor = when a user tries to submit a report, it validates that it the area is within their georole (just by
 	comparing if their georole is the same as the city in which they are in)
-
 	Stephen = and all the backend database work
 
-	***NOTE georoles at this point will just be string values designatinh cities
+	****** georoles at this point will just be string values designations cities ******
 
-	Michael: -to add georole proerty, need to modify User_Model in application/models/user
-	         -added column in database (under users) for georole
+	Discovered that to add georole proerty, needed to modify or add: 
+	     -User_Model in application/models/user.php
+	     -added column in database (under users) for georole
 		 -Need to modify create_user() function definition (add georole) in application/models/user.php
 		 -Need to modify create_user() function call in /modules/auth/libraries/drivers/Auth/ORM.php (line 256)
 		 -Need to modify create_user() function call in /application/controllers/login.php (line 255)
-		 (DONT KNOW FULL IMPLICATIONS OF CHANGES)
-		 
-		 ***successfully adds georole as string to user table in database from /admin/users/edit/
-
-Mar.8
     
-     Michael: created two new files to test including a map:
-        - applications/controllers/tests/georolemap.php
-        - applications/views/tests/georole_map.php
-        
-     included code from:
-        - applications/controllers/admin/reports.php in function edit() starting at line 316
-        - applications/views/admin/reports/edit.php on line 203 to 234
-        
-     ***NOTE: GEOMETRY object in geometry table in database is made up of an SQL GEOMETRY Object
-              (ie contains POINT values)
-              
-             * "geometry" variable used in reports.php is made up of an array of values (one for each
-              unique row in the geometry table), and is part of a "form" object *
-             
+    Successfully adds georole as string to user table in database from /admin/users/edit.php.
 
-Mar. 10
-
-     No luck with decyphering how graphical geometry control works on applications/views/admin/reports/edit.php 
-     page....
-
-     ***However, will try to add a "custom GeoRole Filter" by modifying:
-     applications/controllers/reports.php
-     themes/default/views/reports/main.php starting at line 182
-
-     Will be working on this in class to more, as well as to make a controller parse a logged in users
-     georole data, automatically put it into this filter, and restrict list of reports to that location/locations
-
-Mar. 11:
-     
-     *** Report Submission validaiton working with added georole attribute to user model
-     	 (city must be within users assigned georole before they can submit a report)
-
-     *** files modified:
-     	 application/helpers/admin.php        |    3 +++
- 	 application/helpers/reports.php      |    9 +++++++--
- 	 application/helpers/valid.php        |   26 ++++++++++++++++++++++++--
- 	 application/libraries/Validation.php |    2 ++
- 	 application/models/user.php          |    9 +++++++++
- 	 
- 	 Michael: gonna change themes/default/view/reports/list.php to edit view of report list,
- 	          and application/controllers/reports.php (edit function called on line 167,
- 	          fetch_incidents function located in helpers/reports.php,
- 	          might need to modify models/incidents.php to make change for fetch_incidents
- 	          
- 	          
- 	          ***Modifying incident.php at line 310 to add to the SQL query, if done right should
- 	             reduce incidents or reports returned to the list, also modified reports.php at roughly
- 	             line 1000 to include georole value when passing to fetch_incidents and get_incident functions
- 	             needed to form query
- 	             
- 	             No Success so far
-Mar. 13/14:
-
-    Michael:  ***changes to helpers/reports.php and models/incidents.php files implicitly restrict the list
-              of reports to only incidents reported from a location that corresponds to a users georole, even if
-              filtered by other fields (ie if choose all categories, still reduces the list)
-              
-              ***if georole is null, doesnt add line to query so it includes all incidents in list view
-              (default behavior if georole is null is that all reports still added to list in views/reports.php)
-              FIXED
-              
-              ***Still need to implement to parse georole and location to match in sql query if georole made of
-              multiple cities
-              FIXED
-              
-              ***Adding title to reports view page to tell user limiting report list ot ehir georole
-                    -modified themes/default/views/reports/main.php on line 11
-                    -modified applicaiton/il8n/en_US/ui_main.php on line 196              
-                    -modified themes/default/css/style.css at end of file
-Mar.15:
-                 
-     Function Created:               
-              *modified _get_report_listing_view() function in /controllers/reports.php to
-               recalculate $stats_breadcrumb used in report list view to list how many reports are in the list
-                    -did this by making the function georole_report_count() in the same file (line starting at 206, and
-                    function at end of file)
-              *fixed georole header message in themes/default/views/reports/main.php to not display is georole is null
-                    
-Mar. 17:
+Mar.5 - Mar.8:
     
-    ***implemented function to filter "markers" baseon georole before being rendered as geojson objects.***
-    ***right now, only renders incidents that are outside a users georole as black dots***
-       (NOTE: will changed behavior later to not make incidents clickable by the user)
-    
-        * - modified applications/controllers/json.php at line 133
+    (Michael) Created two new files to test including a map onto a webpage:
+       - applications/controllers/tests/georolemap.php
+       - applications/views/tests/georole_map.php
         
-    Function Created: in applications/controllers/json.php called filter_markers() at end of file
-    
-    **fixed and cleaned up code created previously in applications/models/incidents.php at line 312
-      by abstracting code into a function, and removed uneccessary code in applications/helpers/reports.php at end of file
-      
-    Function Created: in applications/models/incidents.php called filter_georole_list() at end of file
-    
-    ***Still need to fix:
-        -how clustering is done for markers on the map now as filtering by georole still doesnt affect the normal clusters
-         (ie a cluster of 3 markers that are filtered are still count 3 red even though one is black)
-        -on reports page, some number values as the dont implicitly change with the report list
+    included code from:
+       - applications/controllers/admin/reports.php in function edit() starting at line 316
+       - applications/views/admin/reports/edit.php on line 203 to 234
         
-Mar. 18: (STEVE LIND IS WRITING THIS)
-    -Editing this file to test github as we are having major issues with git.
-        
-    Michael:
-        Fixed: 
-            - issue with cluttering (editted applications/controllers/json.php by making function to remove markers)
-            - fixed report list issue (eddited applications/models/incidents.php and modified function at end
-                to use query that splits and lower cases l.location_name)
+    Figured out that the GEOMETRY object in the geometry table in database is made up of an SQL GEOMETRY Object
+    (ie contains POINT values) and that the "geometry" variable used in reports.php is made up of an array of 
+    values (one for each unique row in the geometry table), and is part of a "form" object).            
 
-Mar. 19:(Steve Lind)
-     -Editing this file in order to clean github
-                
-Mar. 20:
-    Michael: created new local branch called "michael", will be working on that
-            *trying to edit report content-block on main map page by filtering by georole
-            *need to modify:
-                -themes/default/views/blocks/main_reports.php
-                -applications/il8n/en_Us/ui_main.php
-                -and possibly applications/helpers/blocks.php
-                
-            ***modified:
-                -applications/il8n/en_Us/ui_main.php at line 197 (added georole_reports_listed)        
-                -themes/default/views/blocks/main_reports.php
-                    -lines 2-7 to accomidate new report_listed title that includes user georole and name
-                    -lines 23-26 function call to filter $incidents array based on reports within georole
-                    
-            Function created:
-                -added function filter_incidents() to applications/helpers/blocks.php that takes a georole and
-                and incident array and filters the incidents to contain only those within the georole
-                
-            *Figured out that line 256 in applications/controllers/login.php causing runtime error when generating
-            new user (as required georole)
+Mar.8 - Mar.10:
+
+    No luck with decyphering how graphical geometry control works on applications/views/admin/reports/edit.php 
+    page. However, will try to add a "custom GeoRole Filter" by modifying: /application/controllers/reports.php
+    and /themes/default/views/reports/main.php starting at line 182.
+
+    Will make a controller parse a logged in users georole data, automatically put it into this filter,
+    and restrict list of reports to that location/locations
+
+Mar. 10 - Mar. 12:
+
+    Report Submission validaiton working with added georole attribute to user model
+    (city must be within users assigned georole before they can submit a report).
+
+    Modified the files: application/helpers/admin.php, application/helpers/reports.php,
+ 	application/helpers/valid.php, application/libraries/Validation.php, and application/models/user.php
+ 	   
+ 	Modifying incident.php at line 310 to add to the SQL query, if done right should
+ 	reduce incidents or reports returned to the list, also modified reports.php at roughly
+ 	line 1000 to include georole value when passing to fetch_incidents and get_incident functions
+ 	needed to form query.  However the query is hard to figure out (Michael working on this) so there
+ 	is no Success so far.
+ 	     
+Mar. 13 - Mar. 14:
             
-            
-Mar. 22:
-    Michael:
-        -modified /applications/controllers/reports.php at line 470 to redirect the page
-        if a specified incident, that is selected to have its details viewed, are outside a users georole
-        
-        ***Need to look to /themes/views/reports/submit.php line 20 to get how the red error box
-        works for the submit page and how to incorporate it into the main page
-        ***and helpers/report.php at line 38 to get how the error is generated
-        ***and il8n/en_US/reports.php  for georole how to see where the error messagesare
-        
-        ***Modified:
-            -/themes/default/views/main/layout.php at line 12 to add conditional to show a red error
-            box if current page is the georole_error.php page that copies the main pages session
-            
-        ***File created: georole_error.php is an exact copy of the Main_Controller class in applications (applicaitons/main.php),
-           except for it displays an error message when a users page is redirected by the due to accessing a georole outside
-           of their georole  
-
-Mar. 29:
-    Michael: need to still modify the reports list as has some faults even though reports are filtered
-        Need to:
-            -change the number of pages listed, and the prev and next page buttons to work with the filtered list
-            (in controllers/reports.php in _get_reports_listing function,  in helpers/reports.php where $pagination
-            object set)
-            
-           
-        ***Modified:
-            - helper/reports.php starting at line 970 to accomidate georole to change $pagination and the navigational
-              bar above the reports list  
-            - moved count_incidents_in_georole() function from controllers/reports.php to helpers/reports.php so i can be used outside
-              of the controller,
-            * removed stat_breadcrumb changed mentioned a few days ago from controllers/reports.php starting at line 195
-              as changes to helpers now implements what the removed code did.
-             
-             
-              
-Apr. 3:
-    Michael: editing the files
-        - /controllers/admin/users.php
-        - /views/admin/users/edit.php
-        - /helpers/admin.php
-        
-        so an admin cannot edit a user outside their georole, cannot modify their own georole
-        or the georole of others, and restrict from modifying the superadmin
-
-Apr.4:
-    Michael:
-        - edited /i18n/en_US/ui_admin.php at line 95 to add error messages for admin's trying to edit
-          accounts the shouldn't
-        - edited /applications/views/admin/users/edit.php at line 20 to display error message if flags are set
-        - edited and add functions to applications/helpers/admin.php at line 309 to compare georoles and to
-          perform checks on the flag (including references the database)
-        * edited /controllers/admin/users.php for the function edit() starting at line 85 to incorporate error
-          flags for different conditions, if there set then the changes to the form is never propagated to the DB
-         ***SUCCESS***
+    Need to find a way to filter the reports list page on the main website layout, to implicitly
+    restrict the list of reports to only incidents reported from a location that corresponds to a users 
+    georole, even iffiltered by other fields (ie if choose all categories, still reduces the list).
          
+    Made changes to helpers/reports.php and models/incidents.php so that if georole is null, doesnt add line 
+    to query so it includes all incidents in list view (default behavior if georole is null is that all reports 
+    still added to list in views/reports.php). Implemented function to parse georole and location to match in 
+    sql query if georole made of multiple cities.
+              
+    Added title to reports view page to tell user limiting report list to their georole. Did this by modifying:
+    /themes/default/views/reports/main.php on line 11, /applicaiton/il8n/en_US/ui_main.php on line 196, and            
+    /themes/default/css/style.css at end of file.
+                
+Mar.14 - Mar. 15:
+                                
+    Modified _get_report_listing_view() function in /controllers/reports.php to
+    recalculate $stats_breadcrumb used in report list view to list how many reports are in the list did this by 
+    making the function georole_report_count() in the same file (line starting at 206, and function at end of file)
+    fixed georole header message in themes/default/views/reports/main.php to not display is georole is null.
+                    
+Mar. 15 - Mar. 17:
+    
+    Implemented function to filter "markers" based on georole before being rendered as geojson objects.
+    Right now, only renders incidents that are outside a users georole as grey dots, but later want to
+    figure out how to change this to not make incidents clickable by the user).
+    
+    Modified the file modified applications/controllers/json.php at line 133 and added the function
+    filter_markers() at end of file.
+    
+    Fixed and cleaned up code created previously in applications/models/incidents.php at line 312
+    by abstracting code into a function, and removed uneccessary code in applications/helpers/reports.php at end of file
+                
+Mar. 17 - Mar. 20:
+
+    ***** Group as a whole decided to scrap the graphical georole implementation we have tried to decypher and
+    implement with the string based one we have been implementing to this point as a safeguard.  We can't seem
+    how to get the values out of the geometry object and store them, nor implant that onto the map and actually
+    restrict the users view of incidents *****
+
+    Everyone created a new local branch and will be working on from that.
+    
+    Trying to edit report content-block on main map page (small list of incidents under the map) by filtering by 
+    the current users georole.  To do this we modified: /applications/il8n/en_Us/ui_main.php at line 197 
+    (added georole_reports_listed) and /themes/default/views/blocks/main_reports.php.
           
-Apr.5:
-    Michael: introducing authenticaiton when no user is logged in (so the website doesn't crash) introduced a bunch of 
-            errors among edited files (due to variables not be defined out of conditionals so if no user logged in, variables
-            dont get values).
-            
-                * fixed /themes/default/views/reports/list.php at line 26 and 165 (no need to authenticate $stats_breadcrumb)
-                * fixed applications/controllers/reports.php at line 212 (else statement to set default $stats_breadcrumb value)
-                * fixed /applications/helpers/reports.php at the EOF (made function count all roles if georole is NULLfor SUPERADMIN
-                    or no logged in)
+    Added a the function filter_incidents() to applications/helpers/blocks.php that takes a georole and
+    and incident array and filters the incidents to contain only those within the georole.
                 
-        **** BIG PROBLEM: reports page not found if the user has a georole (not NULL)
-        
-Apr.6:
-    Michael: need to implicitly filter user lsit under admin dashboard to only users within an admins georole
-            (ie cant see anything outside georole or other administrators)
-            
-            
-            *** modified:
-                -/applicaitons/controllers/admin/user.php at line 71 to filter the user objects by the current users georole using a function
-                -/applications/helpers/admin.php added function filter_users_on_georole() at line 305 to filter the users object
-                ^might not have to modify these files
-                
-                -/applications/views/admin/users/main.php might just have to modify this file
-                
-Apr.7:
-    Stephen: resolved page not found issue (JIRA BUG UGC-4)
+    Figured out that line 256 in applications/controllers/login.php was causing a runtime error when generating
+    new user (as required georole).  Didn't create a JIRA bug for this as was a quick remedy by removing
+    the unlees code we added to the file when testing things out.
+                      
+Mar. 20 - Mar.22:
+
+    Couldn't figure out how to make incident markers outside of a users georole, who are now rendered grey, to be
+    non-clickable. So as an alternative, will redirect the user and display an error message when an incident that 
+    is outside their current georole is clicked.
     
-    
-    Michael:
-            modified /applications/views/admin/users/main.php at line 77 and 133 adds a conditional thats filters
-            any user outside of the current admins georole (keeps all admins 
+    Modified /applications/controllers/reports.php at line 470 to redirect the page
+    if a specified incident, that is selected to have its details viewed, are outside a users georole
+        
+    Still needs to look at /themes/views/reports/submit.php line 20 to get how the red error box
+    works for the submit page and how to incorporate it into the main page
+    and helpers/report.php at line 38 to get how the error is generated
+    and il8n/en_US/reports.php  for georole how to see where the error messagesare
+        
+    Modified the files: /themes/default/views/main/layout.php at line 12 to add conditional to show a red error
+    box if current page is the georole_error.php page that copies the main pages session.
             
-                   
-            *** BUG FOUND (UGC-5): Manage Roles & Permissions Tab missing under Admin Dashboard
-            *** BUG FIXED (UGC-5): remove unnecessary conditional         
-         
+    Created the file georole_error.php as an exact copy of the Main_Controller class in applications (applicaitons/main.php),
+    except for it displays an error message when a users page is redirected by the due to accessing a georole outside
+    of their georole. This was done becaue simply redirecting the user to the previous page loses the session information
+    so you can't have a controller change a variable in another controller, so we simply create a new session with the same
+    as the one created automatically by Ushahidi and test if the current page is the georole_error page to produce the error message.
+
+Mar. 22 - Mar. 29:
+
+    Discovered that the reports list as has some faults even though reports are filtered the number of pages listed, and the prev 
+    and next page buttons to work with the filtered list (in controllers/reports.php in _get_reports_listing function,
+    in helpers/reports.php where $pagination object set).
+                     
+    Modified the files: /applicaitons/helpers/reports.php starting at line 970 to accomidate georole to change $pagination 
+    and the navigational bar above the reports list and removed $stat_breadcrumb change mentioned a few days ago from 
+    controllers/reports.php starting at line 195 as changes to helpers now implements what the removed code did.
+                       
+Mar. 29 - Apr.4:
+
+    To implicitly restrict an ADMIN user from editing user setting attributes the do not have privileges to edit
+    (ie password, role, georole, etc.) edited /i18n/en_US/ui_admin.php at line 95 to add error messages for admin's trying to edit
+    accounts the shouldn't, /applications/views/admin/users/edit.php at line 20 to display error message if certain 
+    flags are set, and add functions to applications/helpers/admin.php at line 309 to compare georoles and to
+    perform checks on the flag (including references the database).  Lastly, edited /controllers/admin/users.php 
+    int the function edit() starting at line 85 to incorporate error flags for different conditions, 
+    if there set then the changes to the form is never propagated to the DB.
         
+    Modifications were succesful at restricting any ADMIN account from editing their own settings and attributes, 
+    MEMBER accounts outside their georole, other ADMIN accounts, and any SUPERADMIN account setting and attributes 
+    found in the users table in the DB.
+                                                                               
+Apr.5 - Apr. 6:
+
+    Introducing authenticaiton when no user is logged in (so the website doesn't crash) introduced a bunch of 
+    errors among edited files (due to variables not be defined out of conditionals so if no user logged in, variables
+    dont get values).
+            
+    Fixed /themes/default/views/reports/list.php at line 26 and 165 (no need to authenticate $stats_breadcrumb)
+    ,applications/controllers/reports.php at line 212 (else statement to set default $stats_breadcrumb value)
+    and fixed /applications/helpers/reports.php at the EOF (made function count all roles if georole is NULLfor SUPERADMIN
+    or no logged in)
+                
+    However, we've encountered a BIG PROBLEM where reports pages are notfound (404 ERROR) if the user has a georole, but are
+    found if no users are logged in or the SUPERADMIN is logged in (georole = NULL). Created a bug report on JIRA (UGC-4).
+    Assigned to Michael and Taylor.
         
- 	        
- 	          
- 	 
- 	 
+Apr.6 - Apr. 7:
+
+    Still need to implicitly filter user list under admin dashboard to only display users within an admins georole
+    (ie cant see anything outside georole or other administrators).  To do this modified /applicaitons/controllers/admin/user.php 
+    at line 71 to filter the user objects by the current users georole using a function, and then changed /applications/helpers/admin.php 
+    by adding a function filter_users_on_georole() at line 305 to filter the users object
+    
+    However, this didn't produce the desired results as the $users object found in /applicaitons/controllers/admin/user.php was not
+    edited when it reached the view, so just ended up adding a conditional to applications/views/admin/users/main.php at line 77 and 
+    133 adds a conditional thats filters any user outside of the current admins georole (keeps all ADMIN accounts in the list).
+                
+                
+    * Resolved resolved "page not found issue" (JIRA BUG UGC-4) by removing unnecessary conditionals and simply setting a $georole
+    variable outside of a loop on page in the reports controller /applicaitions/controllers/reports.php.
+      
+    Found another bug (UGC-5): Manage Roles & Permissions Tab missing under Admin Dashboard but quickl resolved that by once again
+    removing an unneeded conditional introduced earlier in the view.
+            
+Apr. 8:
+    At this point, the implementation has been documented thouroughly, the code has been cleaned up in most places and
+    we have been constantly testing with different user accounts and report cases.  If time allows, we might clean up code even
+    further by placing all the functions in their own helper file.        
+ 

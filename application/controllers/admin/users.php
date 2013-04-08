@@ -211,9 +211,6 @@ class Users_Controller extends Admin_Controller {
 				    url::redirect(url::site() . 'admin/users/');
 				}
 				else{
-				    // repopulate the form fields
-				    $form = arr::overwrite($form, $post->as_array());
-
 				    // populate the error fields, if any
 				    $errors = arr::overwrite($errors, $post->errors('auth'));
 				    $form_error = TRUE;
