@@ -109,7 +109,7 @@
 						</h3>
 					</div>
 				<?php endif; ?>
-				
+			    
 				<!-- report-table -->
 				<?php print form::open(NULL, array('id' => 'reportMain', 'name' => 'reportMain')); ?>
 					<input type="hidden" name="action" id="action" value="">
@@ -295,19 +295,23 @@
 											<ul>
 												<?php if (Auth::instance()->has_permission('reports_approve')): ?>
 												<li class="none-separator">
+													<?php if (User_Model::verify_in_georole($incident_location)): ?>
 													<?php if ($incident_approved): ?>
 													<a href="#" class="status_yes" onclick="reportAction('u','UNAPPROVE', '<?php echo $incident_id; ?>');">
 														<?php echo Kohana::lang('ui_main.approve');?>
 													</a>
 													<?php  else: ?>
+
 													<a href="#" onclick="reportAction('a','APPROVE', '<?php echo $incident_id; ?>');">
 														<?php echo Kohana::lang('ui_main.approve');?>
 													</a>
+													<?php endif; ?>	
 													<?php endif; ?>	
 												</li>
 												<?php endif; ?>
 												<?php if (Auth::instance()->has_permission('reports_verify')): ?>
 												<li>
+												    <?php if (User_Model::verify_in_georole($incident_location)): ?>
 													<?php if ($incident_verified): ?>
 													<a href="#" class="status_yes" 
 													    onclick="reportAction('v','VERIFY', '<?php echo $incident_id; ?>');"><?php echo Kohana::lang('ui_main.verify');?>
@@ -317,14 +321,17 @@
 														<?php echo Kohana::lang('ui_main.verify');?>
 													</a>
 													<?php endif; ?>
+													<?php endif; ?>
 												</li>
 												<?php endif; ?>
 												<?php if (Auth::instance()->has_permission('reports_edit')): ?>
+												<?php if (User_Model::verify_in_georole($incident_location)): ?>
 												<li>
 													<a href="#" class="del" onclick="reportAction('d','DELETE', '<?php echo $incident_id; ?>');">
 														<?php echo Kohana::lang('ui_main.delete');?>
 													</a>
 												</li>
+												<?php endif; ?>
 												<?php endif; ?>
 											</ul>
 										</td>

@@ -66,8 +66,8 @@ class Users_Controller extends Admin_Controller {
 
 		// Pagination
 		$pagination = new Pagination( array('query_string' => 'page', 'items_per_page' => (int)Kohana::config('settings.items_per_page_admin'), 'total_items' => ORM::factory('user')->count_all()));
-
-		$users = ORM::factory('user')->orderby('name', 'asc')->find_all((int)Kohana::config('settings.items_per_page_admin'), $pagination->sql_offset);
+        
+		$users = ORM::factory('user')->orderby('name', 'asc')->find_all((int)Kohana::config('settings.items_per_page_admin'), $pagination->sql_offset);      
 
 		// Set the flag for displaying the roles link
 		$this->template->content->display_roles = $this->display_roles;
@@ -107,9 +107,11 @@ class Users_Controller extends Admin_Controller {
 			$form['password'] = '';
 			$form['password_again'] = '';
 		}
-
+//ADDED CODE HERE
 		// Copy the form as errors, so the errors will be stored with keys corresponding to the form field names
 		$errors = $form;
+		$admin_error = FALSE;
+		$georole_error = FALSE;
 		$form_error = FALSE;
 		$form_saved = FALSE;
 		$form_action = "";
@@ -124,7 +126,7 @@ class Users_Controller extends Admin_Controller {
 			// Add the user_id to the $_POST data
 			$user_id = ($user_id) ? $user_id : NULL;
 			$post = array_merge($post, array('user_id' => $user_id));
-
+  
 			if (User_Model::custom_validate($post))
 			{
 				$user = ORM::factory('user', $user_id);
@@ -143,13 +145,18 @@ class Users_Controller extends Admin_Controller {
 				{
 					$user->password = $post->new_password;
 				}
-
+ 
 				// Existing User??
 				if ($user->loaded)
 				{
-					// Prevent modification of the main admin account username or role
+//ADDED CODE HERE
+                    //Prevent modification of admin accounts if current account is not a super user
+                    //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
+                    admin::set_admin_error_flag($user,$admin_error,$georole_error);
+    
+                    // Prevent modification of the main admin account username or role
 					if ($user->id != 1)
-					{
+				    {
 						$user->username = $post->username;
 
 						// Remove Old Roles
@@ -170,6 +177,10 @@ class Users_Controller extends Admin_Controller {
 				else
 				{
 					$user->username = $post->username;
+					
+					//Prevent modification of admin accounts if current account is not a super user
+                    //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
+                    admin::set_admin_error_flag($user,$superadmin_error,$admin_error,$georole_error);
 
 					// Add New Roles
 					if ($post->role != 'none')
@@ -178,15 +189,30 @@ class Users_Controller extends Admin_Controller {
 						$user->add(ORM::factory('role', $post->role));
 					}
 				}
-				$user->save();
+//ADDED CODE HERE
+                //dont propagate changed values if any error flag is set
+                if( $admin_error == FALSE
+                    && $georole_error == FALSE){
+                   			
+				    $user->save();
+				    
+				    //Event for adding user admin details
+				    Event::run('ushahidi_action.users_add_admin', $post);
 
-				//Event for adding user admin details
-				Event::run('ushahidi_action.users_add_admin', $post);
+				    Event::run('ushahidi_action.user_edit', $user);
 
-				Event::run('ushahidi_action.user_edit', $user);
+				    // Redirect
+				    url::redirect(url::site() . 'admin/users/');
+				}
+				else{
+				    // repopulate the form fields
+				    $form = arr::overwrite($form, $post->as_array());
 
-				// Redirect
-				url::redirect(url::site() . 'admin/users/');
+				    // populate the error fields, if any
+				    $errors = arr::overwrite($errors, $post->errors('auth'));
+				    $form_error = TRUE;
+				}
+				
 			}
 			else
 			{
@@ -199,20 +225,31 @@ class Users_Controller extends Admin_Controller {
 			}
 		}
 		else
-		{
+		{ 
+//ADDED CODE HERE
 			if ($user_id)
 			{
-				// Retrieve Current Incident
+			    // Retrieve Current Incident
 				$user = ORM::factory('user', $user_id);
+			
 				if ($user->loaded)
 				{
+				    //Prevent modification of admin accounts if current account is not a super user
+                    //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
+                    admin::set_admin_error_flag($user,$admin_error,$georole_error);
+                    //set appropreiate errors if flags are set
+                    if( $admin_error
+                        || $georole_error){
+                        $form_error = TRUE;
+                    }
+				
 					// Some users don't have roles so we have this "none" role
 					$role = 'none';
 					foreach ($user->roles as $user_role)
 					{
 						$role = $user_role->name;
 					}
-//ADDED Code HERE
+					
 					$form = array('user_id' => $user->id, 'username' => $user->username, 'name' => $user->name, 'email' => $user->email, 'notify' => $user->notify, 'role' => $role, 'georole' => $user->georole);
 				}
 			}
@@ -233,6 +270,9 @@ class Users_Controller extends Admin_Controller {
 		$this->template->content->user = $user;
 		$this->template->content->form = $form;
 		$this->template->content->errors = $errors;
+//ADDED CODE HERE
+        $this->template->content->admin_error = $admin_error;
+        $this->template->content->georole_error = $georole_error;
 		$this->template->content->form_error = $form_error;
 		$this->template->content->form_saved = $form_saved;
 		$this->template->content->yesno_array = array('1' => utf8::strtoupper(Kohana::lang('ui_main.yes')), '0' => utf8::strtoupper(Kohana::lang('ui_main.no')));

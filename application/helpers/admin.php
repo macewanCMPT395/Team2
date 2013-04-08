@@ -267,14 +267,7 @@ class admin_Core {
 
 		$menu .= ($this_sub_page == "users_edit") ? Kohana::lang('ui_admin.manage_users_edit') : "<a href=\"".url::site()."admin/users/edit/\">".Kohana::lang('ui_admin.manage_users_edit')."</a>";
 
-		$menu .= ($this_sub_page == "users_edit") ? Kohana::lang('ui_admin.geoRole') : "<a href=\"".url::site()."admin/users/edit/\">".Kohana::lang('ui_admin.geoRole')."</a>";
-
-
-		// Only display the link for roles where $display_roles = TRUE
-		if ($display_roles)
-		{
-			$menu .= ($this_sub_page == "roles") ? Kohana::lang('ui_admin.manage_roles') : "<a	href=\"".url::site()."admin/users/roles/\">".Kohana::lang('ui_admin.manage_roles')."</a>";
-		}
+	    $menu .= ($this_sub_page == "roles") ? Kohana::lang('ui_admin.manage_roles') : "<a	href=\"".url::site()."admin/users/roles/\">".Kohana::lang('ui_admin.manage_roles')."</a>";
 		
 		$menu .= ($this_sub_page == "georole") ? Kohana::lang('ui_admin.manage_geo_roles') : "<a href=\"".url::site()."admin/users/georole/\">".Kohana::lang('ui_admin.manage_geo_roles')."</a>";
 
@@ -303,4 +296,71 @@ class admin_Core {
 		Kohana::log('alert', 'admin::admin_access() in deprecated and replaced by Auth::admin_access()');
 		return Auth::instance()->admin_access($user);
 	}
+		
+	/**
+	   * Function to see if at least one city within
+	   * one georole is found in another georole
+	   */
+	 public static function compare_georoles($target_georole,$users_georole)
+	 {
+	    //returns 1 if georoles have common city, 0 if not
+	    $target_georoles = explode(",", strtolower(str_replace(' ','',$target_georole)));
+	    $users_georoles = explode(",", strtolower(str_replace(' ','',$users_georole)));
+	    
+	    foreach($target_georoles as $t_role){
+	        foreach($users_georoles as $u_role){
+	            if(strcmp($t_role,$u_role) == 0){
+	               return TRUE; 
+	            }
+	        }
+	    }
+	    return FALSE;
+	 }
+	 
+	 /**
+	   * FUnction queries the database for role id of user, returns empty set if user not admin (role_id != 2)
+	   */
+	 public static function determine_if_admin($user){
+	    //Query DB for user name based on role_id and user_id, 
+        //see if account to be modified is an Admin (role_id = 2) based on whether an empty set
+        //is return from the query or not, if is an admin, then set flag to prevent user from editing other admin
+		$sql = "SELECT DISTINCT u.name FROM users u LEFT JOIN roles_users r ON (u.id = r.user_id)"
+		       ." WHERE (u.id = ".$user->id.") AND (r.role_id = 2)";
+        $query_obj = Database::instance()->query($sql);
+        $obj_arr = (array)$query_obj;
+        //***case database object returned to an array, and get the last element key and value
+        //from that array (ie total_rows), if set is empty then value will be 0, if not then the user
+        //is an admin so set admin error (if not SUPERADMIN)***
+        if( (end($obj_arr) > 0) && $user->id != 1){
+             return TRUE;
+        }
+        return FALSE;
+	 }
+	 
+	 /**
+	   * Function to set and return error flags by reference
+	   *
+	   */
+	 public static function set_admin_error_flag($user,&$admin_error,&$georole_error)
+	 {
+	    //set flag to prevent user from editing themselves (if user or current user not SUPERADMIN)
+        if( ($user->id == Auth::instance()->get_user()->id) 
+            && ($user->id != 1) 
+            && (Auth::instance()->get_user()->id != 1) ){
+		    $admin_error = TRUE;
+        }
+        //if user is an admin, set appropreiate flag (if not SUPERADMIN)
+        if((admin::determine_if_admin($user))
+            && (Auth::instance()->get_user()->id != 1) ){
+            $admin_error = TRUE;
+        } 
+        //set flag to prevent user from editing users outside their georole (if user or current user not SUPERADMIN)
+        $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+        if( (admin::compare_georoles($georole,$user->georole) == FALSE) 
+            && ($user->id != 1) 
+            && (Auth::instance()->get_user()->id != 1) ){
+			$georole_error = TRUE;
+        }
+	 } 
+	
 }

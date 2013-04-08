@@ -17,6 +17,7 @@
 				<h2>
 					<?php admin::user_subtabs("users_edit", $display_roles); ?>
 				</h2>
+<!--ADDED CODE HERE - added display message if admin redirected from trying to edit itself or other admin -->
 				<?php
 				if ($form_error) {
 				?>
@@ -30,6 +31,14 @@
 							print (!$error_description) ? '' : "<li>" . $error_description . "</li>";
 						}
 						?>
+						<?php
+				        if ($admin_error) {
+				            print "<li>" .Kohana::lang('ui_admin.error_admin'). "</li>";
+				        }
+				        if($georole_error){
+				            print "<li>" .Kohana::lang('ui_admin.error_georole'). "</li>";
+				        }
+				        ?>
 						</ul>
 					</div>
 				<?php
@@ -63,8 +72,8 @@
 						</div>
 
                         <div class="row">
-							<h4><?php echo Kohana::lang('ui_main.georole');?> <span class="required"><?php echo "Required (locations delimited by ',')" ?></span></h4>
-<!--THIS IS WHERE WE ADD THINGS-->
+							<h4><?php echo Kohana::lang('ui_main.georole');?> <span class="required"><?php echo Kohana::lang('ui_main.georole_add_user'); ?></span></h4>
+<!--ADDED CODE HERE -->
 							<?php print form::input('georole', $form['georole'], ' class="text long2"'); ?>
 						</div>
 

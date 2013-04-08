@@ -253,7 +253,7 @@ class Login_Controller extends Template_Controller {
 				}
 				
 				//MODIFIED for GEOROLE
-				$user = User_Model::create_user($post->email,$post->password,$post->georole,$riverid_id,$post->name);
+				//$user = User_Model::create_user($post->email,$post->password,$post->georole,$riverid_id,$post->name);
 				//pass the new user on to any plugins that care to know
 				Event::run('ushahidi_action.user_edit', $user); 
 				// Send Confirmation email

@@ -118,4 +118,32 @@ class blocks_Core {
 		$sorted_array = array_intersect($active, $registered);
 		return array_merge($sorted_array, array_diff($registered, $sorted_array));
 	}
+	
+	/**
+	  * Function sorts the $incident array passed by georole
+	  * (filtering the incidents outside of the georole out of the list)
+	  */
+	public static function filter_incidents($georole,$incidents)
+	{
+	    //collect reports that are in the georole in this array
+	    $in_georole = array();
+
+	    $georoles = explode(",", strtolower(str_replace(' ','',$georole)));
+
+	    foreach($incidents as $in){
+	        $locs = explode(",", strtolower(str_replace(' ','',$in->location->location_name)));
+	        $loc = $locs[0]; //ensures only gets city names if cases like ex. edmonton, AB, Canada
+
+	        foreach($georoles as $role){
+	            if(strcmp($loc,$role) == 0){
+	                //if report within georole add to in_georole array
+	                array_push($in_georole,$in);
+	            }
+	        }
+
+	    }
+	    //Return
+	    return $in_georole;
+	}
+		
 }

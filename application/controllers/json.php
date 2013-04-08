@@ -140,15 +140,11 @@ class Json_Controller extends Template_Controller {
         if(strcmp($georole,null) != 0){
 		    //call function to return markers (incidents) that are found outside of a users georole if not null
 		    $outside_georole = $this->filter_markers($georole, $markers);
-                        
-		    //*merge both arrays
-		    //$json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "#0000FFFF", $icon, FALSE));
-		    //***remove duplicate values fromthe merge (as changed markers will overlap from the two arrays)
-		    //$json_features = array_unique($json_features);
-		    //*merge markers with the ones outside georole again to get correct json_features
-		    $json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "#0000FFFF", $icon, FALSE));
+            
+		    //*merge unique markers with the ones outside georole again to get correct json_features
+		    $json_features = array_merge($json_features, $this->markers_geojson($outside_georole, 0, "333333", $icon, FALSE));
 		}
-
+		
 		$this->render_geojson($json_features);
 	}
 
@@ -901,7 +897,6 @@ class Json_Controller extends Template_Controller {
 	    foreach($incidents as $in){
 	        $locs = explode(",", strtolower(str_replace(' ','',$in->location_name)));
 	        $loc = $locs[0]; //ensures only gets city names if cases like ex. edmonton, AB, Canada
-
 	        //use boolean to see if location in georole (if not boolean remains false)
 	        $check = FALSE;
 	        foreach($georoles as $role){
@@ -921,7 +916,6 @@ class Json_Controller extends Template_Controller {
 	    return $in_georole;
 	}
 
-
 	/**
 	  * Function iterates through the $incident array, removing
 	  * any incidents from that array that are found outside the georole
@@ -939,7 +933,6 @@ class Json_Controller extends Template_Controller {
             }
             $count++;
         }
-
 	    return $incidents;
 	}
 	

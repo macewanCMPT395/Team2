@@ -11,7 +11,7 @@ Feb.20:
 	implementation stories for this week must be pushed to the next sprint.
 
 	Although very undesirable, it is expected as out focus factor is very very low due to heavy course and project
-	work in 3 - 4 other classes for all team members (not to mean external responsibities).
+	work in 3 - 4 other classes for all team members (not to mention external responsibities).
 	     
 	This will be a reoccuring trend of pushing back main stories, but it is still likely we will have a stable
 	impelementation or at least prototype by the end of the term.
@@ -61,12 +61,12 @@ Mar.4
 Mar.5
 	*** We have divided the tasks among our group members to, at this level:
 
-	read in a georole designated by a name and assign it to the user(is admin level, controler,Michael)
+	Michae = read in a georole designated by a name and assign it to the user(is admin level, controler)
 
-	when a user tries to submit a report, it validates that it the area is within their georole (just by
-	comparing if their georole is the same as the city in which they are in, Taylor)
+	Taylor = when a user tries to submit a report, it validates that it the area is within their georole (just by
+	comparing if their georole is the same as the city in which they are in)
 
-	and all the backend database work (stephen)
+	Stephen = and all the backend database work
 
 	***NOTE georoles at this point will just be string values designatinh cities
 
@@ -187,11 +187,128 @@ Mar. 18: (STEVE LIND IS WRITING THIS)
             - issue with cluttering (editted applications/controllers/json.php by making function to remove markers)
             - fixed report list issue (eddited applications/models/incidents.php and modified function at end
                 to use query that splits and lower cases l.location_name)
+
+Mar. 19:(Steve Lind)
+     -Editing this file in order to clean github
                 
+Mar. 20:
+    Michael: created new local branch called "michael", will be working on that
+            *trying to edit report content-block on main map page by filtering by georole
+            *need to modify:
+                -themes/default/views/blocks/main_reports.php
+                -applications/il8n/en_Us/ui_main.php
+                -and possibly applications/helpers/blocks.php
                 
-                     
+            ***modified:
+                -applications/il8n/en_Us/ui_main.php at line 197 (added georole_reports_listed)        
+                -themes/default/views/blocks/main_reports.php
+                    -lines 2-7 to accomidate new report_listed title that includes user georole and name
+                    -lines 23-26 function call to filter $incidents array based on reports within georole
+                    
+            Function created:
+                -added function filter_incidents() to applications/helpers/blocks.php that takes a georole and
+                and incident array and filters the incidents to contain only those within the georole
+                
+            *Figured out that line 256 in applications/controllers/login.php causing runtime error when generating
+            new user (as required georole)
+            
+            
+Mar. 22:
+    Michael:
+        -modified /applications/controllers/reports.php at line 470 to redirect the page
+        if a specified incident, that is selected to have its details viewed, are outside a users georole
+        
+        ***Need to look to /themes/views/reports/submit.php line 20 to get how the red error box
+        works for the submit page and how to incorporate it into the main page
+        ***and helpers/report.php at line 38 to get how the error is generated
+        ***and il8n/en_US/reports.php  for georole how to see where the error messagesare
+        
+        ***Modified:
+            -/themes/default/views/main/layout.php at line 12 to add conditional to show a red error
+            box if current page is the georole_error.php page that copies the main pages session
+            
+        ***File created: georole_error.php is an exact copy of the Main_Controller class in applications (applicaitons/main.php),
+           except for it displays an error message when a users page is redirected by the due to accessing a georole outside
+           of their georole  
+
+Mar. 29:
+    Michael: need to still modify the reports list as has some faults even though reports are filtered
+        Need to:
+            -change the number of pages listed, and the prev and next page buttons to work with the filtered list
+            (in controllers/reports.php in _get_reports_listing function,  in helpers/reports.php where $pagination
+            object set)
+            
+           
+        ***Modified:
+            - helper/reports.php starting at line 970 to accomidate georole to change $pagination and the navigational
+              bar above the reports list  
+            - moved count_incidents_in_georole() function from controllers/reports.php to helpers/reports.php so i can be used outside
+              of the controller,
+            * removed stat_breadcrumb changed mentioned a few days ago from controllers/reports.php starting at line 195
+              as changes to helpers now implements what the removed code did.
+             
+             
+              
+Apr. 3:
+    Michael: editing the files
+        - /controllers/admin/users.php
+        - /views/admin/users/edit.php
+        - /helpers/admin.php
+        
+        so an admin cannot edit a user outside their georole, cannot modify their own georole
+        or the georole of others, and restrict from modifying the superadmin
+
+Apr.4:
+    Michael:
+        - edited /i18n/en_US/ui_admin.php at line 95 to add error messages for admin's trying to edit
+          accounts the shouldn't
+        - edited /applications/views/admin/users/edit.php at line 20 to display error message if flags are set
+        - edited and add functions to applications/helpers/admin.php at line 309 to compare georoles and to
+          perform checks on the flag (including references the database)
+        * edited /controllers/admin/users.php for the function edit() starting at line 85 to incorporate error
+          flags for different conditions, if there set then the changes to the form is never propagated to the DB
+         ***SUCCESS***
          
- 	          
+          
+Apr.5:
+    Michael: introducing authenticaiton when no user is logged in (so the website doesn't crash) introduced a bunch of 
+            errors among edited files (due to variables not be defined out of conditionals so if no user logged in, variables
+            dont get values).
+            
+                * fixed /themes/default/views/reports/list.php at line 26 and 165 (no need to authenticate $stats_breadcrumb)
+                * fixed applications/controllers/reports.php at line 212 (else statement to set default $stats_breadcrumb value)
+                * fixed /applications/helpers/reports.php at the EOF (made function count all roles if georole is NULLfor SUPERADMIN
+                    or no logged in)
+                
+        **** BIG PROBLEM: reports page not found if the user has a georole (not NULL)
+        
+Apr.6:
+    Michael: need to implicitly filter user lsit under admin dashboard to only users within an admins georole
+            (ie cant see anything outside georole or other administrators)
+            
+            
+            *** modified:
+                -/applicaitons/controllers/admin/user.php at line 71 to filter the user objects by the current users georole using a function
+                -/applications/helpers/admin.php added function filter_users_on_georole() at line 305 to filter the users object
+                ^might not have to modify these files
+                
+                -/applications/views/admin/users/main.php might just have to modify this file
+                
+Apr.7:
+    Stephen: resolved page not found issue (JIRA BUG UGC-4)
+    
+    
+    Michael:
+            modified /applications/views/admin/users/main.php at line 77 and 133 adds a conditional thats filters
+            any user outside of the current admins georole (keeps all admins 
+            
+                   
+            *** BUG FOUND (UGC-5): Manage Roles & Permissions Tab missing under Admin Dashboard
+            *** BUG FIXED (UGC-5): remove unnecessary conditional         
+         
+        
+        
+ 	        
  	          
  	 
  	 

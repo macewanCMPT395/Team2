@@ -53,6 +53,7 @@ class Main_Controller extends Template_Controller {
 	 * @var Themes
 	 */
 	protected $themes;
+	
 
 	public function __construct()
 	{
@@ -179,7 +180,7 @@ class Main_Controller extends Template_Controller {
 			$this->template->content->site_message = $site_message;
 			$this->template->header->site_message = $site_message;
 		}
-
+          
 		// Get locale
 		$l = Kohana::config('locale.language.0');
 
@@ -448,11 +449,4 @@ class Main_Controller extends Template_Controller {
 		$this->template->footer->footer_block = $this->themes->footer_block();
 	}
 	
-	private function filter_map_georole($georole)
-	{
-	
-	
-	}
-	
-
 } // End Main

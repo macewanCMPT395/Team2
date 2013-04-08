@@ -192,7 +192,9 @@ class Reports_Controller extends Main_Controller {
 		$report_listing->previous_page = $pagination->previous_page;
 
 //ADDED CODE HERE
-        $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		//resolves PAGE NOT FOUND on reports_list (JIRA UGC-4 BUG)
+		$georole = NULL;
+		
 		if ($pagination->total_items > 0)
 		{
 			$current_page = ($pagination->sql_offset / $pagination->items_per_page) + 1;
@@ -206,37 +208,27 @@ class Reports_Controller extends Main_Controller {
 				// @todo This is only specific to the frontend reports theme
 			
 				//accomidate georole, if null get all reports, else call function to count reports within georole
-				if(strcmp($georole,null) == 0){
+				if(strcmp($georole,null) != 0){
+				    $report_listing->stats_breadcrumb = $pagination->current_first_item.'-'
+				                                        .$this->count_incidents_in_georole($georole,$incidents).' of '
+				                                        .$pagination->total_items.' '
+											            .Kohana::lang('ui_main.reports');
+				}
+				else{
 				    $report_listing->stats_breadcrumb = $pagination->current_first_item.'-'
 											. $pagination->current_last_item.' of '.$pagination->total_items.' '
 											. Kohana::lang('ui_main.reports');
-				}
-				else{
-				    $report_listing->stats_breadcrumb = $this->count_incidents_in_georole($georole,$incidents);
-				}
+				}   
 
 			}
 			else
 			{ 
-			    //accomidate georole, if null get all reports, else cal function to count reports within georole
-				if(strcmp($georole,null) == 0){
-				    // If we don't want to show pagination
-				    $report_listing->stats_breadcrumb = $pagination->total_items.' '.Kohana::lang('ui_admin.reports');
-				}
-				else{
-				    $report_listing->stats_breadcrumb = $this->count_incidents_in_georole($georole,$incidents);
-				}
+				$report_listing->stats_breadcrumb = $pagination->total_items.' '.Kohana::lang('ui_admin.reports');
 			}
 		}
 		else
 		{
-		    //accomidate georole, if null get all reports, else cal function to count reports within georole
-			if(strcmp($georole,null) == 0){
-			    $report_listing->stats_breadcrumb = '('.$pagination->total_items.' report'.$plural.')';
-			}
-			else{
-			    $report_listing->stats_breadcrumb = $this->count_incidents_in_georole($georole,$incidents);
-			}
+		    $report_listing->stats_breadcrumb = '('.$pagination->total_items.' report'.$plural.')';
 		}
 
 		// Return
@@ -447,6 +439,7 @@ class Reports_Controller extends Main_Controller {
 	 */
 	public function view($id = FALSE)
 	{
+		
 		$this->template->header->this_page = 'reports';
 		$this->template->content = new View('reports/detail');
 
@@ -468,6 +461,16 @@ class Reports_Controller extends Main_Controller {
 			{
 				url::redirect('reports/view/');
 			}
+			
+//ADDED CODE HERE
+            //determine if specific incident is within georole (use function from helpers/valid.php)
+            if(Auth::instance()->logged_in("login")){
+       	        $check = valid::check_georole($incident->location->location_name);
+       	        if($check == false){
+       	            //if incident locaiton not withing georole, redirect, else continue
+       	            url::redirect('../georole_error.php/main');
+       	        }
+       	    }
 
 			// Comment Post?
 			// Setup and initialize form field names
@@ -1028,32 +1031,5 @@ class Reports_Controller extends Main_Controller {
 		$form_fields = customforms::switcheroo($incident_id,$form_id);
 		echo json_encode(array("status"=>"success", "response"=>$form_fields));
 	}
-	
-	/**
-	 * Function to count number of reports in report listing within georole
-	 * and return as function 
-	 */
-	 public function count_incidents_in_georole($georole,$incidents)
-	 {
-	     $count = 0;
-	     foreach($incidents as $in){
-	        $count++;
-	     }
-	     $string = sprintf("1-%s of %s reports",$count,$count);
-	     
-	     //NOTE: since incidents filtered by georole implicitly, just count number of incidents
-	     
-         /*$georoles = explode(",", strtolower(str_replace(' ','',$georole)));
-	     foreach($incidents as $in){
-	        $location = $in->location_name;
-	        foreach($georoles as $role){
-	            if(strcmp($location,$role) == 0){
-	                $count = $count + 1;
-	            }
-	        }
-	     }*/
-	     
-	     return $string;
-	 }
-
+	 
 }

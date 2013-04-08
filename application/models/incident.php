@@ -55,13 +55,14 @@ class Incident_Model extends ORM {
 	 * Prevents cached items from being reloaded
 	 * @var bool
 	 */
-	protected $reload_on_wakeup   = FALSE;
+	protected $reload_on_wakeup = FALSE;
 
 	/**
 	 * Gets a list of all visible categories
 	 * @todo Move this to the category model
 	 * @return array
-	 */
+	 */	 
+	 
 	public static function get_active_categories()
 	{
 		// Get all active categories
@@ -304,7 +305,13 @@ class Incident_Model extends ORM {
 		// Check for the additional conditions for the query
 		//(NOTE: need $georole value to compare (even as it is always == predicate
 		//as if not specified in conditional, no reports how on map on homepage)
-		$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		if(Auth::instance()->logged_in("login")){
+		    $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
+		}
+		else{
+		  $georole = NULL;
+		}
+		
 		if ( ! empty($where) AND count($where) > 0)
 		{
 			foreach ($where as $predicate)
@@ -321,7 +328,6 @@ class Incident_Model extends ORM {
 				}
 			}
 		}
-        
 		// Might need "GROUP BY i.id" do avoid dupes
 		
 		// Add the having clause
@@ -592,7 +598,8 @@ class Incident_Model extends ORM {
 		
 		parent::save();
 	}
-	
+
+//ADDED CODE HERE	
 	/**
 	  * Function used to add to SQL query to filter incidents by georole
 	  */
