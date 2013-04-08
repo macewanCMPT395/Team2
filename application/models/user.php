@@ -437,7 +437,9 @@ class User_Model extends Auth_User_Model {
 	}
 	
     /**
-	 * Gets the GeoRole of a user
+	 * Function gets the GeoRole of a user
+	 * @param int $user_id
+	 * @return string $user->georole
 	 */
 	public static function get_georole($user_id)
 	{

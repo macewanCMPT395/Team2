@@ -284,7 +284,10 @@ class Incident_Model extends ORM {
 			$having_clause = "HAVING distance <= ".intval($radius['distance'])." ";
 		}
 
-//ADDED CODE HERE: added tab left join to include user who matches incident user_id
+//ADDED CODE HERE
+        /**
+            added tab left join to include user who matches incident user_id
+         **/
 		$sql .=  'FROM '.$table_prefix.'incident i '
 			. 'LEFT JOIN '.$table_prefix.'location l ON (i.location_id = l.id) '
 			. 'LEFT JOIN '.$table_prefix.'incident_category ic ON (ic.incident_id = i.id) '
@@ -302,9 +305,11 @@ class Incident_Model extends ORM {
 			$sql .= 'WHERE (i.incident_active = 1) ';
 		}
 
-		// Check for the additional conditions for the query
-		//(NOTE: need $georole value to compare (even as it is always == predicate
-		//as if not specified in conditional, no reports how on map on homepage)
+		/**
+		    Check for the additional conditions for the query
+		    (NOTE: need $georole value to compare (even as it is always == predicate
+		    as if not specified in conditional, no reports how on map on homepage)
+		 **/
 		if(Auth::instance()->logged_in("login")){
 		    $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 		}
@@ -319,8 +324,10 @@ class Incident_Model extends ORM {
 //ADDED CODE HERE
                 if(strcmp($predicate, null) != 0
                     && strcmp($georole,$predicate) == 0){
-                    //if predicate not null and == georole, add to query find user by id from 
-                    //corressponding id in incident table, then match georole to predicate value (georole)
+                    /**
+                        if predicate not null and == georole, add to query find user by id from 
+                        corressponding id in incident table, then match georole to predicate value (georole)
+                     **/
                     $sql .= Incident_Model::filter_georole_list($predicate);   
                 }
                 else if(strcmp($predicate, null) != 0){
@@ -602,13 +609,13 @@ class Incident_Model extends ORM {
 //ADDED CODE HERE	
 	/**
 	  * Function used to add to SQL query to filter incidents by georole
+	  * @param string $georole
+	  * @return string $string
 	  */
 	 private function filter_georole_list($georole)
 	 {
-	    $string = '';
-                    
+	    $string = '';                 
         $georoles = explode(",", strtolower(str_replace(' ','',$georole)));
-	    
 	    //add AND clause is incident location part of users georole
         $string .= 'AND ('; 
         //add all georole locations as OR clauses to the AND clause (so includes all from georole)
@@ -620,8 +627,7 @@ class Incident_Model extends ORM {
                 $string .= ' OR ';
             }
         }
-        $string .= ') ';
-               
+        $string .= ') ';            
 	    return $string;
 	 }
 	 

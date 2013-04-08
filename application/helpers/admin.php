@@ -300,6 +300,9 @@ class admin_Core {
 	/**
 	   * Function to see if at least one city within
 	   * one georole is found in another georole
+	   * @param bool $target_georole
+	   * @param bool $users_georole
+	   * @return bool $target_georole, bool $users_georole
 	   */
 	 public static function compare_georoles($target_georole,$users_georole)
 	 {
@@ -318,19 +321,26 @@ class admin_Core {
 	 }
 	 
 	 /**
-	   * FUnction queries the database for role id of user, returns empty set if user not admin (role_id != 2)
+	   * Function queries the database for role id of user, 
+	   * returns empty set if user not admin (role_id != 2)
+	   * @param $user
+	   * @return boolean 
 	   */
 	 public static function determine_if_admin($user){
-	    //Query DB for user name based on role_id and user_id, 
-        //see if account to be modified is an Admin (role_id = 2) based on whether an empty set
-        //is return from the query or not, if is an admin, then set flag to prevent user from editing other admin
+	    /**
+	        Query DB for user name based on role_id and user_id, 
+            see if account to be modified is an Admin (role_id = 2) based on whether an empty set
+            is return from the query or not, if is an admin, then set flag to prevent user from editing other admin
+        **/
 		$sql = "SELECT DISTINCT u.name FROM users u LEFT JOIN roles_users r ON (u.id = r.user_id)"
 		       ." WHERE (u.id = ".$user->id.") AND (r.role_id = 2)";
         $query_obj = Database::instance()->query($sql);
         $obj_arr = (array)$query_obj;
-        //***case database object returned to an array, and get the last element key and value
-        //from that array (ie total_rows), if set is empty then value will be 0, if not then the user
-        //is an admin so set admin error (if not SUPERADMIN)***
+        /**
+            case database object returned to an array, and get the last element key and value
+            from that array (ie total_rows), if set is empty then value will be 0, if not then the user
+            is an admin so set admin error (if not SUPERADMIN)
+        **/
         if( (end($obj_arr) > 0) && $user->id != 1){
              return TRUE;
         }
@@ -339,7 +349,10 @@ class admin_Core {
 	 
 	 /**
 	   * Function to set and return error flags by reference
-	   *
+	   * @param obj $user
+	   * @param bool $admin_error
+	   * @param bool $georole_error
+	   * @return bool $admin_error, bool $georole_error
 	   */
 	 public static function set_admin_error_flag($user,&$admin_error,&$georole_error)
 	 {

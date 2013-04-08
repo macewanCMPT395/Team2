@@ -17,7 +17,7 @@
 				<h2>
 					<?php admin::user_subtabs("users_edit", $display_roles); ?>
 				</h2>
-<!--ADDED CODE HERE - added display message if admin redirected from trying to edit itself or other admin -->
+                <!-- added display message if admin redirected from trying to edit itself or other admin -->
 				<?php
 				if ($form_error) {
 				?>

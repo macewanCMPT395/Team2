@@ -396,7 +396,7 @@ class valid_Core {
 			return false;
 		}
 	}	
-	
+
 	/**
 	*Function to check the location against all the locations in the users
 	*users basic string compare to determine if the location is in your georole
@@ -412,23 +412,20 @@ class valid_Core {
 	  }
         $georoles = explode(",", strtolower(str_replace(' ','',User_Model::get_georole(Auth::instance()->get_user()->id))));
         $locations = explode(",",strtolower(str_replace(' ','',$location)));
-        $location = $locations[0];
-        
+        $location = $locations[0];      
         //if georole is null, default behavior is to show reports so return true
         if(strcmp($georoles[0],null) == 0){
-            return true;
+            return TRUE;
         }
-    
 	    foreach($georoles as $loc)
 	    {
 	        //if location found within georole, return true, else false
 	        if ($loc == $location)
 	        {
-	            return true;
-	        }
-	    
+	            return TRUE;
+	        }    
 	    }
-	    return false;
+	    return FALSE;
 	 }   
 	
 } // End valid
