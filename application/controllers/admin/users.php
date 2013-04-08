@@ -150,8 +150,10 @@ class Users_Controller extends Admin_Controller {
 				if ($user->loaded)
 				{
 //ADDED CODE HERE
-                    //Prevent modification of admin accounts if current account is not a super user
-                    //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
+                    /**
+                        Prevent modification of admin accounts if current account is not a super user
+                        , of accounts outside current admins georole, and of themselves (except SUPERADMIN)
+                     **/
                     admin::set_admin_error_flag($user,$admin_error,$georole_error);
     
                     // Prevent modification of the main admin account username or role
@@ -178,9 +180,11 @@ class Users_Controller extends Admin_Controller {
 				{
 					$user->username = $post->username;
 					
-					//Prevent modification of admin accounts if current account is not a super user
-                    //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
-                    admin::set_admin_error_flag($user,$superadmin_error,$admin_error,$georole_error);
+					/**
+                        Prevent modification of admin accounts if current account is not a super user
+                        , of accounts outside current admins georole, and of themselves (except SUPERADMIN)
+                     **/           
+                    admin::set_admin_error_flag($user,$admin_error,$georole_error);
 
 					// Add New Roles
 					if ($post->role != 'none')
@@ -190,7 +194,9 @@ class Users_Controller extends Admin_Controller {
 					}
 				}
 //ADDED CODE HERE
-                //dont propagate changed values if any error flag is set
+                /**
+                    dont propagate changed values if any error flag is set
+                 **/
                 if( $admin_error == FALSE
                     && $georole_error == FALSE){
                    			
@@ -234,10 +240,14 @@ class Users_Controller extends Admin_Controller {
 			
 				if ($user->loaded)
 				{
-				    //Prevent modification of admin accounts if current account is not a super user
-                    //, of accounts outside current admins georole, and of themselves (except SUPERADMIN)           
+				    /**
+                        Prevent modification of admin accounts if current account is not a super user
+                        , of accounts outside current admins georole, and of themselves (except SUPERADMIN)
+                     **/           
                     admin::set_admin_error_flag($user,$admin_error,$georole_error);
-                    //set appropreiate errors if flags are set
+                    /**
+                        set appropreiate errors if flags are set
+                     **/
                     if( $admin_error
                         || $georole_error){
                         $form_error = TRUE;

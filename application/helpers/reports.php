@@ -968,12 +968,16 @@ class reports_Core {
 		if ($paginate)
 		{
 //ADDED CODE HERE
-		    // Acquire Georole string for current User
+		    /**
+		        acquire Georole string for current User
+		     **/
 		    if(Auth::instance()->logged_in("login")){
 		        $georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 		    }
 		    
-		    //Fetch incidents in order to count the number of incidents inside a Users GeoRole
+		    /**
+		        Fetch incidents in order to count the number of incidents inside a Users GeoRole
+		     **/
 		    $incidents = reports::fetch_incidents(FALSE);
 		    
 			// Fetch incident count
@@ -984,7 +988,9 @@ class reports_Core {
 			    ? $items_per_page 
 			    : intval(Kohana::config('settings.items_per_page'));
 			    
-            //if GeoRole of User not null, filter total_items to the number of incidents within georole
+            /**
+                if GeoRole of User not null, filter total_items to the number of incidents within georole
+             **/
             $total_items = 0;
 	        if(Auth::instance()->logged_in("login")){
                 $total_items = reports::count_incidents_in_georole($georole,$incidents);
@@ -1007,8 +1013,10 @@ class reports_Core {
 			self::$pagination = $pagination;
 			
 //ADD CODE HERE			
-			//add georole field and value to self::params
-			//NOTE: implicitly filters georole for reports list (if georole = null, includes all reports)
+			/**
+			    add georole field and value to self::params
+			    NOTE: implicitly filters georole for reports list (if georole = null, includes all reports)
+			 **/
 			if(Auth::instance()->logged_in("login")){
 			    self::$params['georole'] = User_Model::get_georole(Auth::instance()->get_user()->id);
 			}
@@ -1017,9 +1025,6 @@ class reports_Core {
 		}
 		else
 		{	
-			//NOTE: no added implicit filter for georole if $pagnate is FALSE (main purpose is 
-			//so main map isnt affected and still shows the incidents that are colored black based on a Users GeoRole
-			
 			// Return
 			return Incident_Model::get_incidents(self::$params, false, $order_field, $sort);
 		}
@@ -1027,7 +1032,9 @@ class reports_Core {
 	
 	/**
 	 * Function to count number of reports in report listing within georole
-	 * and return as function 
+	 * and return as function
+	 * @param string $georole
+	 * @param obj $incidents
 	 */
 	 public static function count_incidents_in_georole($georole,$incidents)
 	 {

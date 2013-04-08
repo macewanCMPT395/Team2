@@ -72,9 +72,11 @@
 									$georole = User_Model::get_georole(Auth::instance()->get_user()->id);
 									foreach ($users as $user)
 									{
-	//ADDED CODE HERE                   //filter users displayed based on current admins georole
-	                                    //(members within their georole, all admins, filter out SUPERADMIN)
-	                                    //(if current user is SUPERADMIN, filter no one)
+	                                     /** ADDED CODE HERE
+	                                       filter users displayed based on current admins georole
+	                                        (members within their georole, all admins, filter out SUPERADMIN)
+	                                        (if current user is SUPERADMIN, filter no one)
+	                                      **/
 	                                    if( (admin::compare_georoles($georole,$user->georole) == TRUE) 
 	                                        || (admin::determine_if_admin($user) == TRUE) 
 	                                        || (Auth::instance()->get_user()->id == 1) ){

@@ -234,7 +234,7 @@
 	<?php echo $header_block; ?>
 
 	<?php
-        //Michael: added line to include css stylesheet to test georole.css
+        //added line to include css stylesheet to test georole.css
 	echo html::stylesheet(url::file_loc('css').'media/css/tests/georole.css', '', TRUE);
         ?>
 
