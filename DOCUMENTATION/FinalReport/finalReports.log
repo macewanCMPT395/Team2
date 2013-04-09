@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.1.7)  7 APR 2013 21:30
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.1.7)  9 APR 2013 18:59
 entering extended mode
  %&-line parsing enabled.
 **finalReports.tex
@@ -122,34 +122,117 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 54.
- <sql_table.png, id=14, 1371.1225pt x 666.49pt>
+ <submit_report_outside_georole_error.png, id=14, 1371.1225pt x 666.49pt>
+File: submit_report_outside_georole_error.png Graphic file (type png)
+
+<use submit_report_outside_georole_error.png>
+<admin_dashboard_reports_list.png, id=15, 1371.1225pt x 666.49pt>
+File: admin_dashboard_reports_list.png Graphic file (type png)
+
+<use admin_dashboard_reports_list.png> [2 <./reports_list.png (PNG copy)> <./su
+bmit_report_outside_georole_error.png (PNG copy)>]
+<user_list.png, id=20, 1371.1225pt x 666.49pt>
+File: user_list.png Graphic file (type png)
+ <use user_list.png>
+<multiple_user_list_error.png, id=21, 1371.1225pt x 666.49pt>
+File: multiple_user_list_error.png Graphic file (type png)
+
+<use multiple_user_list_error.png> [3 <./admin_dashboard_reports_list.png (PNG 
+copy)>] <sql_table.png, id=25, 1371.1225pt x 666.49pt>
 File: sql_table.png Graphic file (type png)
- <use sql_table.png> [2 <./reports_list.png (PNG copy)> <./sql_table.png (PNG c
-opy)>]
-<jira_bug_list.png, id=19, 1028.34187pt x 578.16pt>
+ <use sql_table.png>
+[4 <./user_list.png (PNG copy)> <./multiple_user_list_error.png (PNG copy)>]
+<jira_bug_list.png, id=29, 1028.34187pt x 578.16pt>
 File: jira_bug_list.png Graphic file (type png)
  <use jira_bug_list.png>
-Overfull \hbox (92.74092pt too wide) in paragraph at lines 70--76
-\OT1/cmr/m/n/10 psuedo weekly build. $[]$ 
+[5 <./sql_table.png (PNG copy)> <./jira_bug_list.png (PNG copy)>] [6]
+Overfull \hbox (1.34682pt too wide) in paragraph at lines 159--160
+[]\OT1/cmr/m/n/10 GEOMETRY lay-out from sub-mit re-port page found in reports-s
+ubmit.php,
  []
 
-[3 <./jira_bug_list.png (PNG copy)>] (./finalReports.aux) ) 
+
+Overfull \hbox (19.64508pt too wide) in paragraph at lines 161--163
+[]\OT1/cmr/m/n/10 -drawCircle() func-tion lo-cated at line 110 in views/map[]co
+mmon[]js -drawCircle
+ []
+
+[7]
+Overfull \hbox (8.19522pt too wide) in paragraph at lines 189--190
+[]\OT1/cmr/m/n/10 function call in /mod-ules/auth/libraries/drivers/Auth/ORM.ph
+p (line 256), 
+ []
+
+
+Overfull \hbox (4.19518pt too wide) in paragraph at lines 203--206
+\OT1/cmr/m/n/10 tion edit() start-ing at line 316 - ap-pli-ca-tions/views/admin
+/reports/edit.php
+ []
+
+
+Overfull \hbox (2.40228pt too wide) in paragraph at lines 207--208
+[]\OT1/cmr/m/n/10 Figured out that the GE-OM-E-TRY ob-ject in the ge-om-e-try t
+a-ble in database
+ []
+
+
+Overfull \hbox (1.20906pt too wide) in paragraph at lines 211--212
+\OT1/cmr/m/n/10 cus-tom Geo-Role Fil-ter by mod-i-fy-ing: /ap-pli-ca-tion/contr
+ollers/reports.php
+ []
+
+[8]
+Overfull \hbox (0.44525pt too wide) in paragraph at lines 221--226
+[]\OT1/cmr/m/n/10 application/helpers/admin.php, ap-pli-ca-tion/helpers/reports
+.php, ap-pli-ca-
+ []
+
+[9]
+Overfull \hbox (11.55075pt too wide) in paragraph at lines 266--267
+\OT1/cmr/m/n/10 geo-role[]reports[]listed) and /themes/default/views/blocks/mai
+n[]reports.php. 
+ []
+
+[10]
+Overfull \hbox (12.3228pt too wide) in paragraph at lines 280--281
+\OT1/cmr/m/n/10 add con-di-tional to show a red er-ror box if cur-rent page is 
+the geo-role[]error.php
+ []
+
+[11]
+Overfull \hbox (3.65814pt too wide) in paragraph at lines 307--309
+\OT1/cmr/m/n/10 other ad-min-is-tra-tors). To do this mod-i-fied /ap-pli-caiton
+s/controllers/admin
+ []
+
+
+Overfull \hbox (5.61174pt too wide) in paragraph at lines 310--313
+\OT1/cmr/m/n/10 in /ap-pli-caitons/controllers/admin/user.php was not edited wh
+en it reached
+ []
+
+
+Overfull \hbox (7.94513pt too wide) in paragraph at lines 315--316
+\OT1/cmr/m/n/10 loop on page in the re-ports con-troller /ap-pli-caitions/contr
+ollers/reports.php. 
+ []
+
+[12] [13] (./finalReports.aux) ) 
 Here is how much of TeX's memory you used:
- 1087 strings out of 256216
- 16260 string characters out of 1917073
- 68522 words of memory out of 1500000
- 4410 multiletter control sequences out of 10000+200000
+ 1108 strings out of 256216
+ 16914 string characters out of 1917073
+ 70522 words of memory out of 1500000
+ 4427 multiletter control sequences out of 10000+200000
  6058 words of font info for 22 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 35i,6n,38p,619b,222s stack positions out of 5000i,500n,6000p,200000b,15000s
-</usr/share/texmf/fo
-nts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmcsc1
-0.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/font
-s/type1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pf
-b>
-Output written on finalReports.pdf (4 pages, 1034591 bytes).
+ 35i,6n,38p,1044b,269s stack positions out of 5000i,500n,6000p,200000b,15000s
+</usr/share/texmf/fonts/type1/bluesky/cm/cmbx12
+.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmcsc10.pfb></usr/share/texmf/fon
+ts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr12.pf
+b></usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb>
+Output written on finalReports.pdf (14 pages, 1618732 bytes).
 PDF statistics:
- 39 PDF objects out of 1000 (max. 8388607)
+ 76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
