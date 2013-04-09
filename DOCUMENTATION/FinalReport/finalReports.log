@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.1.7)  7 APR 2013 21:30
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2013.1.7)  9 APR 2013 17:20
 entering extended mode
  %&-line parsing enabled.
 **finalReports.tex
@@ -124,32 +124,27 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 54.
  <sql_table.png, id=14, 1371.1225pt x 666.49pt>
 File: sql_table.png Graphic file (type png)
- <use sql_table.png> [2 <./reports_list.png (PNG copy)> <./sql_table.png (PNG c
-opy)>]
-<jira_bug_list.png, id=19, 1028.34187pt x 578.16pt>
+ <use sql_table.png>
+<jira_bug_list.png, id=15, 1028.34187pt x 578.16pt>
 File: jira_bug_list.png Graphic file (type png)
  <use jira_bug_list.png>
-Overfull \hbox (92.74092pt too wide) in paragraph at lines 70--76
-\OT1/cmr/m/n/10 psuedo weekly build. $[]$ 
- []
-
-[3 <./jira_bug_list.png (PNG copy)>] (./finalReports.aux) ) 
+[2 <./reports_list.png (PNG copy)> <./sql_table.png (PNG copy)>] [3 <./jira_bug
+_list.png (PNG copy)>] [4] (./finalReports.aux) ) 
 Here is how much of TeX's memory you used:
  1087 strings out of 256216
  16260 string characters out of 1917073
- 68522 words of memory out of 1500000
+ 69522 words of memory out of 1500000
  4410 multiletter control sequences out of 10000+200000
  6058 words of font info for 22 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 35i,6n,38p,619b,222s stack positions out of 5000i,500n,6000p,200000b,15000s
-</usr/share/texmf/fo
-nts/type1/bluesky/cm/cmbx12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmcsc1
-0.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/font
-s/type1/bluesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pf
-b>
-Output written on finalReports.pdf (4 pages, 1034591 bytes).
+ 35i,6n,38p,615b,222s stack positions out of 5000i,500n,6000p,200000b,15000s
+</usr/share/texmf/fonts/type1/
+bluesky/cm/cmbx12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmcsc10.pfb></us
+r/share/texmf/fonts/type1/bluesky/cm/cmr10.pfb></usr/share/texmf/fonts/type1/bl
+uesky/cm/cmr12.pfb></usr/share/texmf/fonts/type1/bluesky/cm/cmsy10.pfb>
+Output written on finalReports.pdf (5 pages, 1036947 bytes).
 PDF statistics:
- 39 PDF objects out of 1000 (max. 8388607)
+ 42 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
