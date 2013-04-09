@@ -496,6 +496,7 @@ $lang = array(
 	'smaller_map' => 'Smaller Map',
 	'sms' => 'SMS',
 	'sorry_no_badges' => 'Sorry, you do not have any badges.',
+	'sort_by' => 'Sort By: ',
 	'source' => 'Source',
 	'source_name' => 'Source name',
 	'source_url' => 'Source URL',
